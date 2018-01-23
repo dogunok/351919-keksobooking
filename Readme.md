@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Igor Samusev](https://up.htmlacademy.ru/javascript/12/user/351919).
-* Наставник: `Неизвестно`.
+* Наставник: `Евгений Сальников`.
 
 ---
 
