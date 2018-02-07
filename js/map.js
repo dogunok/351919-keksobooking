@@ -50,7 +50,7 @@ var renderButton = function (data) {
 var fragment = document.createDocumentFragment();
 
 var p = document.querySelector('.map__pins');
-for (var j = 0; j < 8; j++){
+for (var j = 0; j < 8; j++) {
   fragment.appendChild(renderButton(listing[j]));
 }
 p.appendChild(fragment);
