@@ -1,13 +1,13 @@
-'use strict'
-var invisibleMap = document.querySelector('.map')
-invisibleMap.classList.remove('map--faded')
+'use strict';
+var invisibleMap = document.querySelector('.map');
+invisibleMap.classList.remove('map--faded');
 var getRandom = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде']
-var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
-var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-var listing = []
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
+var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var listing = [];
 
 var addArray = function (number) {
 
@@ -31,40 +31,26 @@ var addArray = function (number) {
         x: getRandom(300, 900),
         y: getRandom(150, 300)
       }
-    })
+    });
   }
-  return listing
-}
-addArray(8)
+  return listing;
+};
+addArray(8);
 
 var renderButton = function (data) {
-  var button = document.createElement('button')
-  button.className = 'map__pin'
-  button.style.left = data.location.x + 'px'
-  button.style.top = data.location.y + 'px'
-  var picture = document.createElement('img')
-  picture.className = 'map__pin'
-  picture.src = data.author.avatar
-  return button
-}
+  var button = document.createElement('button');
+  button.className = 'map__pin';
+  button.style.left = data.location.x + 'px';
+  button.style.top = data.location.y + 'px';
+  var picture = document.createElement('img');
+  picture.className = '';
+  picture.src = data.author.avatar;
+  return button;
+};
 var fragment = document.createDocumentFragment();
 
 var p = document.querySelector('.map__pins');
 for (var j = 0; j < 8; j++){
-  fragment.appendChild(renderButton(listing[j]))
+  fragment.appendChild(renderButton(listing[j]));
 }
-
 p.appendChild(fragment);
-
-
-
-
-
-
-
-
-
-
-
-
-
