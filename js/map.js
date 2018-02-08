@@ -3,7 +3,7 @@
 var invisibleMap = document.querySelector('.map');
 invisibleMap.classList.remove('map--faded');
 var fragment = document.createDocumentFragment();
-
+var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mapFiltersConainer = document.querySelector('.map__filters-container');
 // объявляем массивы
@@ -55,30 +55,39 @@ var renderButton = function (data) {
 };
 
 var renderWindow = function (data) {
-  var infoWindowTemplate = document.querySelector('template article.map__card');
-  var insertH3 = document.querySelector('map__card h3');
-  var insertAdress = document.querySelector('.map__card p');
-  var insertType = document.querySelector('.map__card h4');
+  var infoWindowTemplate = document.querySelector('article.map__card');
+  
+  
+  
   var countGuestsRooms = document.querySelector('.map__card p+p+p');
   var insertCheck = document.querySelector('.map__card p+p+p+p');
-  insertH3.textContent = data.offer.title;
-  insertAdress.textContent = data.offer.adress;
+  
+  
   insertType.textContent = data.offer.type;
   countGuestsRooms.innerHTML = data.offer.rooms + 'комнаты для' + data.offer.guests + 'гостей';
-  insertCheck.innerHTML = 'Заезд после' + data.offer.checkin + ', выезд до' + data.offer.checkout;
-  infoWindowTemplate.appendChild(insertH3);
-  infoWindowTemplate.appendChild(insertAdress);
-  infoWindowTemplate.appendChild(insertType);
-  infoWindowTemplate.appendChild(countGuestsRooms);
-  infoWindowTemplate.appendChild(insertCheck);
-  return infoWindowTemplate;
+  
+  
 };
 
-map.insertBefore(renderWindow(listing[1]), mapFiltersConainer);
+
 
 var mapPins = document.querySelector('.map__pins');
 for (var j = 0; j < 8; j++) {
   fragment.appendChild(renderButton(listing[j]));
+  mapPins.appendChild(fragment);
 }
 
-mapPins.appendChild(fragment);
+var windowElement = template.cloneNode(true);
+  windowElement.querySelector('.map__card h3').textContent  = listing[1].offer.title;
+  windowElement.querySelector('.map__card p').textContent = listing[1].offer.adress;
+  windowElement.querySelector('.map__card h4').textContent = listing[1].offer.type;
+  windowElement.querySelectorAll('.map__card p ')[2].textContent = listing[1].offer.rooms + ' комнаты для ' + listing[1].offer.guests + ' гостей';
+  windowElement.querySelectorAll('.map__card p ')[3].textContent = 'Заезд после ' + listing[1].offer.checkin + ', выезд до ' + listing[1].offer.checkout;
+  windowElement.querySelector('.popup__features').textContent = listing[1].offer.features;
+  map.insertBefore(windowElement, mapFiltersConainer);
+
+
+
+
+
+
