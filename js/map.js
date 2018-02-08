@@ -11,7 +11,7 @@ var allTitle = ['Большая уютная квартира', 'Маленьк�
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var listing = [];
-//объявляем функции
+// объявляем функции
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -51,13 +51,13 @@ var renderButton = function (data) {
   button.style.top = data.location.y + 'px';
   picture.src = data.author.avatar;
   button.appendChild(picture);
-    return button;
+  return button;
 };
 
-var renderWindow = function(data) {
+var renderWindow = function (data) {
   var infoWindowTemplate = document.querySelector('template article.map__card');
   var insertH3 = document.querySelector('map__card h3');
-  var insertAdress= document.querySelector('.map__card p');
+  var insertAdress = document.querySelector('.map__card p');
   var insertType = document.querySelector('.map__card h4');
   var countGuestsRooms = document.querySelector('.map__card p+p+p');
   var insertCheck = document.querySelector('.map__card p+p+p+p');
@@ -71,8 +71,8 @@ var renderWindow = function(data) {
   infoWindowTemplate.appendChild(insertType);
   infoWindowTemplate.appendChild(countGuestsRooms);
   infoWindowTemplate.appendChild(insertCheck);
-    return infoWindowTemplate;
-}
+  return infoWindowTemplate;
+};
 
 map.insertBefore(renderWindow(listing[1]), mapFiltersConainer);
 
@@ -80,4 +80,5 @@ var mapPins = document.querySelector('.map__pins');
 for (var j = 0; j < 8; j++) {
   fragment.appendChild(renderButton(listing[j]));
 }
+
 mapPins.appendChild(fragment);
