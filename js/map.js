@@ -23,16 +23,16 @@ var addArray = function (number) {
         avatar: 'img/avatars/user0' + getRandom(1, number) + '.png'
       }, offer: {
         title: allTitle[getRandom(0, allTitle.length - 1)],
-        adress: 'location.x, location.y',
+        adress: '',
         price: getRandom(1000, 1000000),
         type: 'house',
         rooms: getRandom(1, 5),
         guests: getRandom(1, 5),
         checkin: '12:00',
         checkout: '12:00',
-        features: allFeatures[getRandom(1, allFeatures.length)],
+        features: allFeatures[getRandom(0, allFeatures.length - 1)],
         description: '',
-        photos: allPhotos[getRandom(1, allPhotos.length)]
+        photos: allPhotos[getRandom(0, allPhotos.length - 1)]
       }, location: {
         x: getRandom(300, 900),
         y: getRandom(150, 300)
@@ -53,41 +53,30 @@ var renderButton = function (data) {
   button.appendChild(picture);
   return button;
 };
-
 var renderWindow = function (data) {
-  var infoWindowTemplate = document.querySelector('article.map__card');
-  
-  
-  
-  var countGuestsRooms = document.querySelector('.map__card p+p+p');
-  var insertCheck = document.querySelector('.map__card p+p+p+p');
-  
-  
-  insertType.textContent = data.offer.type;
-  countGuestsRooms.innerHTML = data.offer.rooms + 'комнаты для' + data.offer.guests + 'гостей';
-  
-  
+  var windowElement = template.cloneNode(true);
+  windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
+  windowElement.querySelector('.map__card h3').textContent = data.offer.title;
+  windowElement.querySelector('.map__card p').textContent = data.location.x + ',' + data.location.y;
+  windowElement.querySelector('.popup__price').textContent = data.offer.price + '&#x20bd' + '/ночь;';
+  windowElement.querySelector('.map__card h4').textContent = data.offer.type;
+  windowElement.querySelectorAll('.map__card p ')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
+  windowElement.querySelectorAll('.map__card p ')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
+  windowElement.querySelector('.popup__features .feature--wifi').textContent = data.offer.features;
+  windowElement.querySelector('.popup__features .feature--dishwasher').textContent = data.offer.features;
+  windowElement.querySelector('.popup__features .feature--parking').textContent = data.offer.features;
+  windowElement.querySelector('.popup__features .feature--washer').textContent = data.offer.features;
+  windowElement.querySelector('.popup__features .feature--elevator').textContent = data.offer.features;
+  windowElement.querySelector('.popup__features .feature--conditioner').textContent = data.offer.features;
+  windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
+  windowElement.querySelector('.popup__pictures img').src = data.offer.photos;
+  windowElement.querySelector('.popup__pictures img').style.width = '70px';
+  map.insertBefore(windowElement, mapFiltersConainer);
 };
-
-
 
 var mapPins = document.querySelector('.map__pins');
 for (var j = 0; j < 8; j++) {
   fragment.appendChild(renderButton(listing[j]));
   mapPins.appendChild(fragment);
+  renderWindow(listing[j]);
 }
-
-var windowElement = template.cloneNode(true);
-  windowElement.querySelector('.map__card h3').textContent  = listing[1].offer.title;
-  windowElement.querySelector('.map__card p').textContent = listing[1].offer.adress;
-  windowElement.querySelector('.map__card h4').textContent = listing[1].offer.type;
-  windowElement.querySelectorAll('.map__card p ')[2].textContent = listing[1].offer.rooms + ' комнаты для ' + listing[1].offer.guests + ' гостей';
-  windowElement.querySelectorAll('.map__card p ')[3].textContent = 'Заезд после ' + listing[1].offer.checkin + ', выезд до ' + listing[1].offer.checkout;
-  windowElement.querySelector('.popup__features').textContent = listing[1].offer.features;
-  map.insertBefore(windowElement, mapFiltersConainer);
-
-
-
-
-
-
