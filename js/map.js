@@ -6,6 +6,7 @@ var fragment = document.createDocumentFragment();
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mapFiltersConainer = document.querySelector('.map__filters-container');
+var mapPins = document.querySelector('.map__pins');
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -16,7 +17,7 @@ var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 var addArray = function (number) {
-
+  listing = [];
   for (var i = 1; i <= number; i++) {
     listing.push({
       author: {
@@ -41,7 +42,8 @@ var addArray = function (number) {
   }
   return listing;
 };
-addArray(8);
+
+var posting = addArray(8);
 
 var renderButton = function (data) {
   var button = document.createElement('button');
@@ -50,33 +52,55 @@ var renderButton = function (data) {
   button.style.left = data.location.x + 'px';
   button.style.top = data.location.y + 'px';
   picture.src = data.author.avatar;
+  picture.style.width = '40px';
+  picture.style.height = '40px';
+  picture.draggable = 'false';
   button.appendChild(picture);
   return button;
 };
+// var addFeature = function () {
+// for (var i = 0; i < allFeatures.length; i++) {
+//   if (listing[1].offer.features === 'wifi') {
+//     return 'feature';
+//   }
+//   if (listing[1].offer.features === 'washer') {
+//     return 'feature--dishwasher';
+//   }
+//   if (listing[1].offer.features === 'parking') {
+//     return 'feature--parking';
+//   }
+//   if (listing[1].offer.features === 'elevator') {
+//     return 'feature--elevator';
+//   }
+//   if (listing[1].offer.features === 'dish') {
+//     return 'feature--washer';
+//   }
+//   return 'feature--conditioner';
+// }
+// };
 var renderWindow = function (data) {
   var windowElement = template.cloneNode(true);
   windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
   windowElement.querySelector('.map__card h3').textContent = data.offer.title;
   windowElement.querySelector('.map__card p').textContent = data.location.x + ',' + data.location.y;
-  windowElement.querySelector('.popup__price').textContent = data.offer.price + '&#x20bd' + '/ночь;';
+  windowElement.querySelector('.popup__price').textContent = data.offer.price + '&#x20bd;/ночь';
   windowElement.querySelector('.map__card h4').textContent = data.offer.type;
   windowElement.querySelectorAll('.map__card p ')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
   windowElement.querySelectorAll('.map__card p ')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-  windowElement.querySelector('.popup__features .feature--wifi').textContent = data.offer.features;
-  windowElement.querySelector('.popup__features .feature--dishwasher').textContent = data.offer.features;
-  windowElement.querySelector('.popup__features .feature--parking').textContent = data.offer.features;
-  windowElement.querySelector('.popup__features .feature--washer').textContent = data.offer.features;
-  windowElement.querySelector('.popup__features .feature--elevator').textContent = data.offer.features;
-  windowElement.querySelector('.popup__features .feature--conditioner').textContent = data.offer.features;
+  windowElement.querySelectorAll('.feature')[getRandom(0, allFeatures.length - 1)].remove('feature');
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
   windowElement.querySelector('.popup__pictures img').src = data.offer.photos;
   windowElement.querySelector('.popup__pictures img').style.width = '70px';
   map.insertBefore(windowElement, mapFiltersConainer);
 };
 
-var mapPins = document.querySelector('.map__pins');
-for (var j = 0; j < 8; j++) {
-  fragment.appendChild(renderButton(listing[j]));
-  mapPins.appendChild(fragment);
-  renderWindow(listing[j]);
-}
+renderWindow(posting[1]);
+
+var addPinsMap = function () {
+  for (var j = 0; j < 8; j++) {
+    fragment.appendChild(renderButton(listing[j]));
+    mapPins.appendChild(fragment);
+  }
+};
+addPinsMap();
+
