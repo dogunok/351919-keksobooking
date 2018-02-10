@@ -6,7 +6,7 @@ var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mapFiltersConainer = document.querySelector('.map__filters-container');
 var mapPins = document.querySelector('.map__pins');
-var popupPictures = document.querySelector('.popup__pictures');
+// var popupPictures = document.querySelector('.popup__pictures');
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
