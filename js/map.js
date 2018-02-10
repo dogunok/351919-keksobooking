@@ -2,7 +2,6 @@
 // объявляем дом элементы
 var invisibleMap = document.querySelector('.map');
 invisibleMap.classList.remove('map--faded');
-var fragment = document.createDocumentFragment();
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mapFiltersConainer = document.querySelector('.map__filters-container');
@@ -60,21 +59,21 @@ var renderButton = function (data) {
   return button;
 };
 
-var addPicture = function (data) {
-  var li = document.createElement('li');
-  var picture = document.createElement('img');
-  picture.src = data;
-  li.appendChild(picture);
-  return li;
-};
-var addPictureTamplate = function () {
-  for (var j = 0; j < 3; j++) {
-    fragment.appendChild(addPicture(allPhotos[j]));
-    popupPictures.appendChild(fragment);
-  }
-};
+// var addPicture = function (data) {
+//  var li = document.createElement('li');
+//  var picture = document.createElement('img');
+//  picture.src = data;
+//  li.appendChild(picture);
+//  return li;
+// };
+// var addPictureTamplate = function () {
+//  var fragment = document.createDocumentFragment();
+//  for (var j = 0; j < 3; j++) {
+//    fragment.appendChild(addPicture(allPhotos[j]));
+//    popupPictures.appendChild(fragment);
+//  }
+// };
 
-addPictureTamplate();
 // var addFeature = function () {
 // for (var i = 0; i < allFeatures.length; i++) {
 //   if (listing[1].offer.features === 'wifi') {
@@ -96,7 +95,7 @@ addPictureTamplate();
 // }
 // };
 var renderWindow = function (data) {
-  addPictureTamplate();
+
   var windowElement = template.cloneNode(true);
   windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
   windowElement.querySelector('.map__card h3').textContent = data.offer.title;
@@ -107,7 +106,7 @@ var renderWindow = function (data) {
   windowElement.querySelectorAll('.map__card p ')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
   windowElement.querySelectorAll('.feature')[getRandom(0, allFeatures.length - 1)].remove('feature');
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
-  windowElement.querySelector('.popup__pictures img').src = data.offer.photos;
+  windowElement.querySelector('.popup__pictures img').src = data.offer.photos[1];
   windowElement.querySelector('.popup__pictures img').style.width = '70px';
   map.insertBefore(windowElement, mapFiltersConainer);
 };
@@ -115,6 +114,7 @@ var renderWindow = function (data) {
 renderWindow(posting[1]);
 
 var addPinsMap = function () {
+  var fragment = document.createDocumentFragment();
   for (var j = 0; j < 8; j++) {
     fragment.appendChild(renderButton(posting[j]));
     mapPins.appendChild(fragment);
