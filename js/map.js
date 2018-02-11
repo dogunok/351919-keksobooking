@@ -1,18 +1,32 @@
 'use strict';
 // объявляем дом элементы
-var invisibleMap = document.querySelector('.map');
-invisibleMap.classList.remove('map--faded');
 var template = document.querySelector('template').content;
 var map = document.querySelector('.map');
 var mapFiltersConainer = document.querySelector('.map__filters-container');
 var mapPins = document.querySelector('.map__pins');
+var noticeFormDisabled = document.querySelectorAll('.notice__form fieldset');
+
+
 // var popupPictures = document.querySelector('.popup__pictures');
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+// обработчики событий
 
 // объявляем функции
+var addDisabledFieldset = function (BooleanValue) {
+  for (var i = 0; i < noticeFormDisabled.length; i++) {
+    if (BooleanValue) {
+      noticeFormDisabled[i].setAttribute('disabled', 'disabled');
+    } else {
+      noticeFormDisabled[i].removeAttribute('disabled', 'disabled');
+    }
+
+  }
+};
+addDisabledFieldset(true);
+
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -111,7 +125,7 @@ var renderWindow = function (data) {
   map.insertBefore(windowElement, mapFiltersConainer);
 };
 
-renderWindow(posting[1]);
+// renderWindow(posting[1]);
 
 var addPinsMap = function () {
   var fragment = document.createDocumentFragment();
@@ -121,4 +135,6 @@ var addPinsMap = function () {
   }
 };
 
-addPinsMap();
+// addPinsMap();
+
+
