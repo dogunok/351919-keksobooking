@@ -186,9 +186,7 @@ adType.addEventListener('change', changePrice);
 
 Pin[1].addEventListener('click', function (evt) {
   var adAdress = document.querySelector('#address');
-  var X = evt.clientX + 21.5;
-  var Y = evt.clientY + 65;
-  adAdress.value = X = ' + X + '; Y = ' + Y';
+  var x = evt.clientX + 21.5;
+  var y = evt.clientY + 65;
+  adAdress.value = 'X = ' + x + '; Y = ' + y;
 });
-
-
