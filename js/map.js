@@ -68,7 +68,7 @@ var posting = addArray(8);
 var renderButton = function (data,numberId) {
   var button = document.createElement('button');
   var picture = document.createElement('img');
-  button.className = 'map__pin';
+   button.className = 'map__pin';
   button.style.left = data.location.x + 'px';
   button.style.top = data.location.y + 'px';
   adAttrubute(button, 'id', 'pin_' + numberId);
@@ -135,18 +135,23 @@ var renderWindow = function (data) {
 
 var addRenderWindow = function () {
 
-for (var i = 0; i < 8; i++) {
+for (var i = 0; i < 1; i++) {
 renderWindow(posting[i]);
 var article = document.querySelectorAll('.map .map__card');
 article[i].setAttribute('id', 'ad_' + i);
   }
 };
 
+
+
 var addPinsMap = function () {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < 8; i++) {
-    fragment.appendChild(renderButton(posting[i], i));
+  for (var i = 0; i < 8; i++) {  
+    var button = renderButton(posting[i], i)
+    button.addEventListener('click', pinClickHeandler);
+    fragment.appendChild(button);
+    
     mapPins.appendChild(fragment);
     
       }
@@ -154,10 +159,11 @@ var addPinsMap = function () {
 
 
 
+
+
 adAttrubute(adTitle, 'required', 'required');
 adAttrubute(adTitle, 'minlength', '30');
 adAttrubute(adTitle, 'maxlength', '100');
-
 adAttrubute(adPrice, 'required', 'required');
 adAttrubute(adPrice, 'type', 'number');
 adAttrubute(adPrice, 'max', '1000000');
@@ -171,6 +177,17 @@ var mappinsMouseupHandler = function () {
   addPinsMap();
   addRenderWindow()
   };
+
+
+  var pinClickHeandler = function(evt) {
+  // доступ к data- атрибутам можно получить через dataset.имяАтрибута
+  // evt.target - объект на котором произошло событие https://developer.mozilla.org/ru/docs/Web/API/Event/target
+var p = evt.target.dataset.id ;
+  for (var i = 0; i < 10; i++)
+  if(p === '' + i) {
+   return alert(i);
+  }  
+};
 
 // обработчики событий
 mapPinMain.addEventListener('mouseup', mappinsMouseupHandler);
@@ -193,6 +210,10 @@ var changePrice = function () {
 };
 adType.addEventListener('change', changePrice);
 
+var pinClickHeandler = function(evt) {
+  renderWindow(1);
+  }
+
 
 
 /* pin.addEventListener('click', function (evt) {
@@ -202,16 +223,3 @@ adType.addEventListener('change', changePrice);
   adAdress.value = 'X = ' + x + '; Y = ' + y;
 }); */
 
-for (var i = 0; i < 2; i++) {
-var pin = document.querySelector('#pin_' + i);
-pin.addEventListener('click', function () {
-if(pin_0) {
-  return alert('1');
-}
-if(pin_1){
-  return alert('2');
-}
-
-})
-  
-}
