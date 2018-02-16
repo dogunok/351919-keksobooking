@@ -10,7 +10,7 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var adTitle = document.querySelector('#title');
 var adPrice = document.querySelector('#price');
 var adType = document.querySelector('#type');
-
+var windowElement = template.cloneNode(true);
 
 // var popupPictures = document.querySelector('.popup__pictures');
 // объявляем массивы
@@ -68,10 +68,10 @@ var posting = addArray(8);
 var renderButton = function (data,numberId) {
   var button = document.createElement('button');
   var picture = document.createElement('img');
-   button.className = 'map__pin';
+  button.className = 'map__pin';
   button.style.left = data.location.x + 'px';
   button.style.top = data.location.y + 'px';
-  adAttrubute(button, 'id', 'pin_' + numberId);
+  button.setAttribute('data-id', numberId);
   picture.src = data.author.avatar;
   picture.style.width = '40px';
   picture.style.height = '40px';
@@ -115,9 +115,9 @@ var renderButton = function (data,numberId) {
 //   return 'feature--conditioner';
 // }
 // };
+
+
 var renderWindow = function (data) {
-  var article = document.querySelectorAll('.map .map__card');
-  var windowElement = template.cloneNode(true);
   windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
   windowElement.querySelector('.map__card h3').textContent = data.offer.title;
   windowElement.querySelector('.map__card p').textContent = data.location.x + ',' + data.location.y;
@@ -129,37 +129,21 @@ var renderWindow = function (data) {
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
   windowElement.querySelector('.popup__pictures img').src = data.offer.photos[1];
   windowElement.querySelector('.popup__pictures img').style.width = '70px';
-  map.insertBefore(windowElement, mapFiltersConainer);
-};
+  };
 
-
-var addRenderWindow = function () {
-
-for (var i = 0; i < 1; i++) {
-renderWindow(posting[i]);
-var article = document.querySelectorAll('.map .map__card');
-article[i].setAttribute('id', 'ad_' + i);
-  }
-};
 
 
 
 var addPinsMap = function () {
   var fragment = document.createDocumentFragment();
-
-  for (var i = 0; i < 8; i++) {  
+  for (var i = 0; i < posting.length; i++) {  
     var button = renderButton(posting[i], i)
+        fragment.appendChild(button);
     button.addEventListener('click', pinClickHeandler);
-    fragment.appendChild(button);
-    
     mapPins.appendChild(fragment);
-    
-      }
+    }
+   map.insertBefore(windowElement, mapFiltersConainer); 
 };
-
-
-
-
 
 adAttrubute(adTitle, 'required', 'required');
 adAttrubute(adTitle, 'minlength', '30');
@@ -169,26 +153,23 @@ adAttrubute(adPrice, 'type', 'number');
 adAttrubute(adPrice, 'max', '1000000');
 adAttrubute(adPrice, 'min', '1000');
 
-
 var mappinsMouseupHandler = function () {
   addDisabledFieldset(false);
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
   addPinsMap();
-  addRenderWindow()
-  };
+
+    };
 
 
   var pinClickHeandler = function(evt) {
+
   // доступ к data- атрибутам можно получить через dataset.имяАтрибута
   // evt.target - объект на котором произошло событие https://developer.mozilla.org/ru/docs/Web/API/Event/target
-var p = evt.target.dataset.id ;
-  for (var i = 0; i < 10; i++)
-  if(p === '' + i) {
-   return alert(i);
-  }  
-};
-
+  var id = evt.target.dataset.id;
+  renderWindow(posting[id]);
+ 
+ }
 // обработчики событий
 mapPinMain.addEventListener('mouseup', mappinsMouseupHandler);
 
@@ -208,11 +189,9 @@ var changePrice = function () {
   }
 
 };
+
 adType.addEventListener('change', changePrice);
 
-var pinClickHeandler = function(evt) {
-  renderWindow(1);
-  }
 
 
 
