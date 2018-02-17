@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc,no-unused-expressions */
 'use strict';
 // объявляем дом элементы
 var template = document.querySelector('template').content;
@@ -12,11 +13,11 @@ var adPrice = document.querySelector('#price');
 var adType = document.querySelector('#type');
 var windowElement = template.cloneNode(true);
 
-// var popupPictures = document.querySelector('.popup__pictures');
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+
 // объявляем функции
 var addDisabledFieldset = function (BooleanValue) {
   for (var i = 0; i < noticeFormDisabled.length; i++) {
@@ -29,10 +30,6 @@ var addDisabledFieldset = function (BooleanValue) {
   }
 };
 addDisabledFieldset(true);
-
-var adAttrubute = function (data, name, value) {
-  data.setAttribute(name, value);
-};
 
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -65,7 +62,7 @@ var addArray = function (number) {
 };
 var posting = addArray(8);
 
-var renderButton = function (data,numberId) {
+var renderButton = function (data, numberId) {
   var button = document.createElement('button');
   var picture = document.createElement('img');
   button.className = 'map__pin';
@@ -80,42 +77,6 @@ var renderButton = function (data,numberId) {
   return button;
 };
 
-// var addPicture = function (data) {
-//  var li = document.createElement('li');
-//  var picture = document.createElement('img');
-//  picture.src = data;
-//  li.appendChild(picture);
-//  return li;
-// };
-// var addPictureTamplate = function () {
-//  var fragment = document.createDocumentFragment();
-//  for (var j = 0; j < 3; j++) {
-//    fragment.appendChild(addPicture(allPhotos[j]));
-//    popupPictures.appendChild(fragment);
-//  }
-// };
-
-// var addFeature = function () {
-// for (var i = 0; i < allFeatures.length; i++) {
-//   if (listing[1].offer.features === 'wifi') {
-//     return 'feature';
-//   }
-//   if (listing[1].offer.features === 'washer') {
-//     return 'feature--dishwasher';
-//   }
-//   if (listing[1].offer.features === 'parking') {
-//     return 'feature--parking';
-//   }
-//   if (listing[1].offer.features === 'elevator') {
-//     return 'feature--elevator';
-//   }
-//   if (listing[1].offer.features === 'dish') {
-//     return 'feature--washer';
-//   }
-//   return 'feature--conditioner';
-// }
-// };
-
 
 var renderWindow = function (data) {
   windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
@@ -129,70 +90,78 @@ var renderWindow = function (data) {
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
   windowElement.querySelector('.popup__pictures img').src = data.offer.photos[1];
   windowElement.querySelector('.popup__pictures img').style.width = '70px';
-  };
-
-
-
-
-var addPinsMap = function () {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < posting.length; i++) {  
-    var button = renderButton(posting[i], i)
-        fragment.appendChild(button);
-    button.addEventListener('click', pinClickHeandler);
-    mapPins.appendChild(fragment);
-    }
-   map.insertBefore(windowElement, mapFiltersConainer); 
+  map.insertBefore(windowElement, mapFiltersConainer);
+  return windowElement;
 };
 
-adAttrubute(adTitle, 'required', 'required');
-adAttrubute(adTitle, 'minlength', '30');
-adAttrubute(adTitle, 'maxlength', '100');
-adAttrubute(adPrice, 'required', 'required');
-adAttrubute(adPrice, 'type', 'number');
-adAttrubute(adPrice, 'max', '1000000');
-adAttrubute(adPrice, 'min', '1000');
 
+/**
+ * Функция отображает определенное количество пинов в зависимости от длины основного массива
+ */
+var addPinsMap = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < posting.length; i++) {
+    var button = renderButton(posting[i], i);
+    button.addEventListener('click', pinClickHandler);
+    fragment.appendChild(button);
+
+    mapPins.appendChild(fragment);
+
+  }
+
+};
+// Добавляем атрибуты валидации форм
+adTitle.setAttribute('required', 'required');
+adTitle.setAttribute('minlength', '30');
+adTitle.setAttribute('maxlength', '100');
+adPrice.setAttribute('required', 'required');
+adPrice.setAttribute('type', 'number');
+adPrice.setAttribute('max', '1000000');
+adPrice.setAttribute('min', '1000');
+
+/**
+ * Функция события перевода страницы в активный режим и отображения на ней пинов
+ */
 var mappinsMouseupHandler = function () {
   addDisabledFieldset(false);
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
   addPinsMap();
+};
 
-    };
-
-
-  var pinClickHeandler = function(evt) {
-
-  // доступ к data- атрибутам можно получить через dataset.имяАтрибута
-  // evt.target - объект на котором произошло событие https://developer.mozilla.org/ru/docs/Web/API/Event/target
+/**
+ * Функция события нажатия на пин и вывода окна
+ * @param evt
+ */
+var pinClickHandler = function (evt) {
   var id = evt.target.dataset.id;
   renderWindow(posting[id]);
- 
- }
+
+};
 // обработчики событий
 mapPinMain.addEventListener('mouseup', mappinsMouseupHandler);
 
+/**
+ * функция валидации списка
+ */
 var changePrice = function () {
 
   if (adType.selectedIndex === 0) {
-    adAttrubute(adPrice, 'min', '1000');
+    adPrice.setAttribute('min', '1000');
   }
   if (adType.selectedIndex === 1) {
-    adAttrubute(adPrice, 'min', '0');
+    adPrice.setAttribute('min', '0');
   }
   if (adType.selectedIndex === 2) {
-    adAttrubute(adPrice, 'min', '5000');
+    adPrice.setAttribute('min', '5000');
   }
   if (adType.selectedIndex === 3) {
-    adAttrubute(adPrice, 'min', '10000');
+    adPrice.setAttribute('min', '10000');
   }
 
 };
 
 adType.addEventListener('change', changePrice);
-
-
 
 
 /* pin.addEventListener('click', function (evt) {
