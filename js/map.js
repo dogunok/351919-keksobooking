@@ -98,6 +98,8 @@ var renderWindow = function (data, numberId) {
   windowElement.querySelector('.map__pin img').src = data.author.avatar;
   windowElement.querySelector('.map__pin').setAttribute('data-id', numberId);
   windowElement.querySelector('.map__pin').classList.add('pin__solo');
+  windowElement.querySelector('.map__pin').classList.add('hidden');
+  windowElement.querySelector('.map__card').classList.add('hidden');
   map.insertBefore(windowElement, mapFiltersConainer);
 };
 
@@ -136,8 +138,9 @@ var mappinsMouseupHandler = function () {
   addDisabledFieldset(false);
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
-  for (var j = 0; j < 8; j++) {
-    mapCard[j].classList.add('hidden');
+  var pinSolo = document.querySelectorAll('.pin__solo');
+  for (var i = 0; i < 8; i++) {
+    pinSolo[i].classList.remove('hidden');
   }
 };
 
