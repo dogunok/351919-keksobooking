@@ -11,7 +11,7 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var adTitle = document.querySelector('#title');
 var adPrice = document.querySelector('#price');
 var adType = document.querySelector('#type');
-var windowElement = template.cloneNode(true);
+
 
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
@@ -31,6 +31,7 @@ var addDisabledFieldset = function (BooleanValue) {
 };
 addDisabledFieldset(true);
 
+
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -49,7 +50,7 @@ var addArray = function (number) {
         guests: getRandom(1, 5),
         checkin: '12:00',
         checkout: '12:00',
-        features: allFeatures,
+        features: allFeatures[getRandom(0, 6)],
         description: '',
         photos: allPhotos
       }, location: {
@@ -62,7 +63,8 @@ var addArray = function (number) {
 };
 var posting = addArray(8);
 
-var renderButton = function (data, numberId) {
+
+/* var renderButton = function (data, numberId) {
   var button = document.createElement('button');
   var picture = document.createElement('img');
   button.className = 'map__pin';
@@ -75,10 +77,11 @@ var renderButton = function (data, numberId) {
   picture.draggable = false;
   button.appendChild(picture);
   return button;
-};
+}; */
 
 
-var renderWindow = function (data) {
+var renderWindow = function (data, numberId) {
+  var windowElement = template.cloneNode(true);
   windowElement.querySelector('.map__card .popup__avatar').src = data.author.avatar;
   windowElement.querySelector('.map__card h3').textContent = data.offer.title;
   windowElement.querySelector('.map__card p').textContent = data.location.x + ',' + data.location.y;
@@ -90,26 +93,28 @@ var renderWindow = function (data) {
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
   windowElement.querySelector('.popup__pictures img').src = data.offer.photos[1];
   windowElement.querySelector('.popup__pictures img').style.width = '70px';
+  windowElement.querySelector('.map__pin').style.left = data.location.x + 'px';
+  windowElement.querySelector('.map__pin').style.top = data.location.y + 'px';
+  windowElement.querySelector('.map__pin img').src = data.author.avatar;
+  windowElement.querySelector('.map__pin').setAttribute('data-id', numberId);
+  windowElement.querySelector('.map__pin').classList.add('pin__solo');
   map.insertBefore(windowElement, mapFiltersConainer);
-  return windowElement;
 };
 
 
-/**
+ /**
  * Функция отображает определенное количество пинов в зависимости от длины основного массива
  */
-var addPinsMap = function () {
+/* var addPinsMap = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < posting.length; i++) {
     var button = renderButton(posting[i], i);
     button.addEventListener('click', pinClickHandler);
     fragment.appendChild(button);
-
     mapPins.appendChild(fragment);
-
   }
+}; */
 
-};
 // Добавляем атрибуты валидации форм
 adTitle.setAttribute('required', 'required');
 adTitle.setAttribute('minlength', '30');
@@ -119,6 +124,11 @@ adPrice.setAttribute('type', 'number');
 adPrice.setAttribute('max', '1000000');
 adPrice.setAttribute('min', '1000');
 
+for (var i = 0; i < 8; i++) {
+  renderWindow(posting[i], i)
+}
+
+
 /**
  * Функция события перевода страницы в активный режим и отображения на ней пинов
  */
@@ -126,20 +136,47 @@ var mappinsMouseupHandler = function () {
   addDisabledFieldset(false);
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
-  addPinsMap();
+  for (var j = 0; j < 8; j++) {
+    mapCard[j].classList.add('hidden');
+  }
 };
+
+
+var pinSolo = document.querySelectorAll('.pin__solo');
+var mapCard = document.querySelectorAll('.map__card');
+ for (var d = 0; d < 8; d++) {
+pinSolo[d].addEventListener('click', function (evt) {
+    var id = evt.currentTarget.dataset.id;
+   mapCard[id].classList.remove('hidden');
+  var popupClose = mapCard[id].querySelector('.popup__close');
+  popupClose.addEventListener('click', function () {
+    mapCard[id].classList.add('hidden');
+  })
+})
+ }
+
+
+for (var c = 0; c < 8; c++) {
+
+
+}
 
 /**
  * Функция события нажатия на пин и вывода окна
  * @param evt
  */
-var pinClickHandler = function (evt) {
-  var id = evt.target.dataset.id;
+/* var pinClickHandler = function (evt) {
+  var id = evt.currentTarget.dataset.id;
+  mapCard[id].classList.remove('hidden');
   renderWindow(posting[id]);
+}; */
 
-};
+
 // обработчики событий
 mapPinMain.addEventListener('mouseup', mappinsMouseupHandler);
+
+
+
 
 /**
  * функция валидации списка
