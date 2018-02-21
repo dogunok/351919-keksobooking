@@ -134,7 +134,7 @@ var renderWindow = function (data, numberId) {
   windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
   var renderPectures = function () {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < allPhotos.length; i++) {
       fragment.appendChild(renderPicture(data, i));
     }
     return fragment;
@@ -168,7 +168,7 @@ adPrice.setAttribute('type', 'number');
 adPrice.setAttribute('max', '1000000');
 adPrice.setAttribute('min', '1000');
 
-for (var o = 0; o < 8; o++) {
+for (var o = 0; o < posting.length; o++) {
   renderWindow(posting[o], o);
 }
 
@@ -181,7 +181,7 @@ var mappinsMouseupHandler = function () {
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
 
-  for (var a = 0; a < 8; a++) {
+  for (var a = 0; a < posting.length; a++) {
     pinSolo[a].classList.remove('hidden');
   }
 };
@@ -234,57 +234,60 @@ var typeChangeHandler = function () {
 };
 
 adType.addEventListener('change', typeChangeHandler);
-/**
- * Функция события выбора времени заезда
- * @param evt
- */
-var timeinChangeHandler = function (evt) {
-  for (var i = 0; i < 3; i++) {
-    if (evt.target.selectedIndex === 0) {
 
-      timeout[i].removeAttribute('selected', 'selected');
-      timeout[0].setAttribute('selected', 'selected');
+var timeChangeHandler = function (evt) {
+  synchronizeTime(evt.target.value);
+};
+
+timein.addEventListener('change', timeChangeHandler);
+timeout.addEventListener('change', timeChangeHandler);
+
+var synchronizeTime = function (time) {
+  timeout.value = time;
+  timein.value = time;
+};
+
+
+var guest = document.querySelector('#capacity');
+var room = document.querySelector('#room_number');
+var guests = guest.querySelectorAll('option');
+
+var guestChangeHandler = function () {
+  for (var i = 0; i < room.length; i++) {
+    if (room.value === '1') {
+      guests[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
+      guest[0].setAttribute('disabled', 'disabled');
+      guest[1].setAttribute('disabled', 'disabled');
+      guest[3].setAttribute('disabled', 'disabled');
+      guest[2].setAttribute('selected', 'selected');
     }
-    if (evt.target.selectedIndex === 1) {
-
-      timeout[i].removeAttribute('selected', 'selected');
-      timeout[1].setAttribute('selected', 'selected');
+    if (room.value === '2') {
+      guests[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
+      guest[0].setAttribute('disabled', 'disabled');
+      guest[3].setAttribute('disabled', 'disabled');
+      guest[2].setAttribute('selected', 'selected');
     }
-    if (evt.target.selectedIndex === 2) {
+    if (room.value === '3') {
+      guest[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
+      guest[3].setAttribute('disabled', 'disabled');
+      guest[2].setAttribute('selected', 'selected');
 
-      timeout[i].removeAttribute('selected', 'selected');
-      timeout[2].setAttribute('selected', 'selected');
+    }
+    if (room.value === '100') {
+      guests[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
+      guest[0].setAttribute('disabled', 'disabled');
+      guest[1].setAttribute('disabled', 'disabled');
+      guest[2].setAttribute('disabled', 'disabled');
+      guest[3].setAttribute('selected', 'selected');
     }
   }
 };
+room.addEventListener('change', guestChangeHandler);
 
-timein.addEventListener('change', timeinChangeHandler);
-
-/**
- *  функиця события выбора времени выезда
- * @param evt
- */
-var timeoutChangeHandler = function (evt) {
-  for (var i = 0; i < 3; i++) {
-    if (evt.target.selectedIndex === 0) {
-
-      timein[i].removeAttribute('selected', 'selected');
-      timein[0].setAttribute('selected', 'selected');
-    }
-    if (evt.target.selectedIndex === 1) {
-
-      timein[i].removeAttribute('selected', 'selected');
-      timein[1].setAttribute('selected', 'selected');
-    }
-    if (evt.target.selectedIndex === 2) {
-
-      timein[i].removeAttribute('selected', 'selected');
-      timein[2].setAttribute('selected', 'selected');
-    }
-  }
-};
-
-timeout.addEventListener('change', timeoutChangeHandler);
 
 /**
  * Функция добавлениякоординат в поле адресс центрального пина
