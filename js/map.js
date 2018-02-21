@@ -10,8 +10,9 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var adTitle = document.querySelector('#title');
 var adPrice = document.querySelector('#price');
 var adType = document.querySelector('#type');
-
-
+var mapPin = document.querySelector('.map__pin');
+var timein = document.querySelector('#timein');
+var timeout = document.querySelector('#timeout');
 // объявляем массивы
 var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -88,25 +89,31 @@ var addArray = function (number) {
 };
 var posting = addArray(8);
 
-
+/**
+ * Функция создания картинок для объявления
+ * @param data массив из которого берем данные
+ * @param numberPhoto номер картинки
+ * @returns {HTMLLIElement}
+ */
 var renderPicture = function (data, numberPhoto) {
-
   var picture = document.createElement('img');
   var li = document.createElement('li');
   picture.src = data.offer.photos[numberPhoto];
   picture.style.width = '60px';
   picture.style.height = '60px';
   li.appendChild(picture);
-
   return li;
 };
-
-var renderFeature = function (value) {
+/**
+ * функция создания особенностей
+ * value - значение особенности
+ */
+/* var renderFeature = function (value) {
   var feature = document.createElement('li');
   feature.classList.add('feature');
   feature.classList.add('feature--' + value);
   return feature;
-};
+}; */
 
 /**
  * Функция создает шаблон, пинов и объявления
@@ -133,8 +140,7 @@ var renderWindow = function (data, numberId) {
     return fragment;
   };
   windowElement.querySelector('.popup__pictures').appendChild(renderPectures());
-
- /* var renderFeatures = function () {
+  /* var renderFeatures = function () {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < getRandom(0, 5); i++) {
       fragment.appendChild(renderFeature(getRandom(0, 5)));
@@ -162,8 +168,8 @@ adPrice.setAttribute('type', 'number');
 adPrice.setAttribute('max', '1000000');
 adPrice.setAttribute('min', '1000');
 
-for (var i = 0; i < 8; i++) {
-  renderWindow(posting[i], i);
+for (var o = 0; o < 8; o++) {
+  renderWindow(posting[o], o);
 }
 
 var pinSolo = document.querySelectorAll('.pin__solo');
@@ -174,6 +180,7 @@ var mappinsMouseupHandler = function () {
   addDisabledFieldset(false);
   map.classList.remove('map--faded');
   noticeForm.classList.remove('notice__form--disabled');
+
   for (var a = 0; a < 8; a++) {
     pinSolo[a].classList.remove('hidden');
   }
@@ -207,9 +214,9 @@ mapPinMain.addEventListener('mouseup', mappinsMouseupHandler);
 
 
 /**
- * функция валидации списка
+ * функция валидации списка типа жилья
  */
-var changePrice = function () {
+var typeChangeHandler = function () {
 
   if (adType.selectedIndex === 0) {
     adPrice.setAttribute('min', '1000');
@@ -226,13 +233,66 @@ var changePrice = function () {
 
 };
 
-adType.addEventListener('change', changePrice);
+adType.addEventListener('change', typeChangeHandler);
+/**
+ * Функция события выбора времени заезда
+ * @param evt
+ */
+var timeinChangeHandler = function (evt) {
+  for (var i = 0; i < 3; i++) {
+    if (evt.target.selectedIndex === 0) {
 
+      timeout[i].removeAttribute('selected', 'selected');
+      timeout[0].setAttribute('selected', 'selected');
+    }
+    if (evt.target.selectedIndex === 1) {
 
-/* pin.addEventListener('click', function (evt) {
+      timeout[i].removeAttribute('selected', 'selected');
+      timeout[1].setAttribute('selected', 'selected');
+    }
+    if (evt.target.selectedIndex === 2) {
+
+      timeout[i].removeAttribute('selected', 'selected');
+      timeout[2].setAttribute('selected', 'selected');
+    }
+  }
+};
+
+timein.addEventListener('change', timeinChangeHandler);
+
+/**
+ *  функиця события выбора времени выезда
+ * @param evt
+ */
+var timeoutChangeHandler = function (evt) {
+  for (var i = 0; i < 3; i++) {
+    if (evt.target.selectedIndex === 0) {
+
+      timein[i].removeAttribute('selected', 'selected');
+      timein[0].setAttribute('selected', 'selected');
+    }
+    if (evt.target.selectedIndex === 1) {
+
+      timein[i].removeAttribute('selected', 'selected');
+      timein[1].setAttribute('selected', 'selected');
+    }
+    if (evt.target.selectedIndex === 2) {
+
+      timein[i].removeAttribute('selected', 'selected');
+      timein[2].setAttribute('selected', 'selected');
+    }
+  }
+};
+
+timeout.addEventListener('change', timeoutChangeHandler);
+
+/**
+ * Функция добавлениякоординат в поле адресс центрального пина
+ */
+mapPin.addEventListener('click', function (evt) {
   var adAdress = document.querySelector('#address');
   var x = evt.clientX + 21.5;
   var y = evt.clientY + 65;
   adAdress.value = 'X = ' + x + '; Y = ' + y;
-}); */
+});
 
