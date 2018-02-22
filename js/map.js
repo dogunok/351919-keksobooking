@@ -72,7 +72,6 @@
       var newY = minMaxComposition(start.y - shift.y, 150, 650);
       var adAdress = document.querySelector('#address');
       adAdress.value = 'x:' + (newX + 20) + ' y:' + (newY + 44);
-
       mapPinMain.style.top = newY + 'px';
       mapPinMain.style.left = newX + 'px';
     };
