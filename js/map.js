@@ -68,8 +68,8 @@
         return Math.min(Math.max(value, min), max);
       };
 
-      var newX = minMaxComposition(start.x - shift.x, 50, 1150);
-      var newY = minMaxComposition(start.y - shift.y, 150, 650);
+      var newX = minMaxComposition(start.x - shift.x, 300, 900);
+      var newY = minMaxComposition(start.y - shift.y, 150, 500);
       var adAdress = document.querySelector('#address');
       adAdress.value = 'x:' + (newX + 20) + ' y:' + (newY + 44);
       mapPinMain.style.top = newY + 'px';

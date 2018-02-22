@@ -28,7 +28,7 @@
           photos: allPhotos
         }, location: {
           x: window.getRandom(300, 900),
-          y: window.getRandom(150, 300)
+          y: window.getRandom(150, 500)
         }
       });
     }
