@@ -38,7 +38,6 @@
     }
   };
   invisibleOpen();
-
   var onMouseDown = function (evt) {
     evt.preventDefault();
     var start = {
