@@ -38,7 +38,7 @@
   }; */
 
 
-  var result;
+/*  var result;
   var getData = function () {
     return result;
   };
@@ -50,7 +50,7 @@
     console.log('успешно', response);
   }, function () {
     console.log('шибка');
-  });
+  }); */
 
 
 })();
