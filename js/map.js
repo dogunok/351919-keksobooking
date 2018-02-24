@@ -4,12 +4,34 @@
   // объявляем дом элементы
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
+
+
+  var successUploadHandler = function () {
+    window.addDisabledFieldset(false);
+  };
+
+  var errorUploadHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    noticeForm.insertAdjacentElement('afterbegin', node);
+  };
+
+  noticeForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(noticeForm), successUploadHandler, errorUploadHandler);
+  });
   /**
    * Функция отрисовки шаблона на карте
    */
   var drawWindow = function () {
-    for (var i = 0; i < window.data.posting.length; i++) {
-      window.render.renderWindow(window.data.posting[i], i);
+    for (var i = 0; i < 8; i++) {
+      window.render.renderWindow(window.data.posting, i);
     }
   };
   drawWindow();
@@ -45,11 +67,7 @@
       y: evt.clientY
     };
     window.addDisabledFieldset(false);
-    window.render.card.classList.remove('map--faded');
-    noticeForm.classList.remove('notice__form--disabled');
-    for (var a = 0; a < window.data.posting.length; a++) {
-      pinSolo[a].classList.remove('hidden');
-    }
+
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();

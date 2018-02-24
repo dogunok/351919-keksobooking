@@ -39,7 +39,7 @@
       windowElement.querySelectorAll('.map__card p ')[4].textContent = data.offer.description;
       var renderPectures = function () {
         var fragment = document.createDocumentFragment();
-        for (var i = 0; i < window.data.photos.length; i++) {
+        for (var i = 0; i < data.photos.length; i++) {
           fragment.appendChild(renderPicture(data, i));
         }
         return fragment;

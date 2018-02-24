@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 'use strict';
 (function () {
+  /*
   var allTitle = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
   var allFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var allPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
@@ -33,9 +35,22 @@
       });
     }
     return listing;
+  }; */
+
+
+  var result;
+  var getData = function () {
+    return result;
   };
-  window.data = {
-    posting: addArray(8),
-    photos: allPhotos
+  var setData = function (newdata) {
+    result = newdata;
   };
+  window.backend.load(function (response) {
+    getData(response);
+    console.log('успешно', response);
+  }, function () {
+    console.log('шибка');
+  });
+
+
 })();
