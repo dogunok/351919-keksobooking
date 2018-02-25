@@ -17,6 +17,9 @@
     node.style.fontSize = '30px';
     node.textContent = errorMessage;
     noticeForm.insertAdjacentElement('afterbegin', node);
+    setTimeout(function () {
+      noticeForm.removeChild(node);
+    }, 5000);
   };
 
   window.backend.load(successLoadHandler, errorLoadHandler);

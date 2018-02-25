@@ -90,21 +90,28 @@
             content.
             querySelector('button.map__pin');
         var pin = template.cloneNode(true);
+        var pinImg = template.querySelector('.map__pin img');
+
         pin.addEventListener('click', function (evt) {
-          window.render.updatePopup(evt.currentTarget.dataset.id);
+          var id = evt.currentTarget.dataset.id;
+          window.render.updatePopup(id);
+          console.log(id);
+
         });
-        pin.src = data[i].author.avatar;
+
         pin.style.left = data[i].location.x +
           'px';
         pin.style.top = data[i].location.y +
           'px';
 
         pin.setAttribute('data-id', i);
+        pinImg.src = data[i].author.avatar;
+        console.log(data[i].author.avatar);
         pin.classList.add('hidden');
         fragment.appendChild(pin);
       }
       mapPins.appendChild(fragment);
 
-    }
+    },
   };
 })();

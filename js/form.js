@@ -16,6 +16,9 @@
 
     node.textContent = errorMessage;
     noticeForm.insertAdjacentElement('afterbegin', node);
+    setTimeout(function () {
+      noticeForm.removeChild(node);
+    }, 5000);
   };
 
   noticeForm.addEventListener('submit', function (evt) {
