@@ -95,7 +95,7 @@
         pin.addEventListener('click', function (evt) {
           var id = evt.currentTarget.dataset.id;
           window.render.updatePopup(id);
-          console.log(id);
+
 
         });
 
@@ -106,7 +106,6 @@
 
         pin.setAttribute('data-id', i);
         pinImg.src = data[i].author.avatar;
-        console.log(data[i].author.avatar);
         pin.classList.add('hidden');
         fragment.appendChild(pin);
       }

@@ -54,31 +54,29 @@
 
   var guestChangeHandler = function () {
     for (var i = 0; i < room.length; i++) {
+      guests[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
       if (room.value === '1') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '2') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '3') {
-        guest[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
 
       }
       if (room.value === '100') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('disabled', 'disabled');
