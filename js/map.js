@@ -4,73 +4,32 @@
   // объявляем дом элементы
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
 
-
-  var successUploadHandler = function () {
-    window.addDisabledFieldset(false);
+  var showMap = function () {
+    map.classList.remove('map--faded');
+    noticeForm.classList.remove('notice__form--disabled');
   };
 
-  var errorUploadHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    noticeForm.insertAdjacentElement('afterbegin', node);
-  };
-
-  noticeForm.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(noticeForm), successUploadHandler, errorUploadHandler);
-  });
-  /**
-   * Функция отрисовки шаблона на карте
-   */
-  var drawWindow = function () {
-    for (var i = 0; i < 8; i++) {
-      window.render.renderWindow(window.data.posting, i);
+  var showAdverts = function () {
+    var pins = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < pins.length; i++) {
+      pins[i].classList.remove('hidden');
     }
   };
-  drawWindow();
-
-  var pinSolo = document.querySelectorAll('.pin__solo');
 
 
-  var mapCard = document.querySelectorAll('.map__card');
-  var invisibleOpen = function () {
-    for (var d = 0; d < window.data.posting.length; d++) {
-      pinSolo[d].addEventListener('mouseup', function (evt) {
-        evt.currentTarget.dataset.id;
-        for (var f = 0; f < window.data.posting.length; f++) {
-          mapCard[f].classList.add('hidden');
-        }
-      });
-
-      pinSolo[d].addEventListener('click', function (evt) {
-        var id = evt.currentTarget.dataset.id;
-        mapCard[id].classList.remove('hidden');
-        var popupClose = mapCard[id].querySelector('.popup__close');
-        popupClose.addEventListener('click', function () {
-          mapCard[id].classList.add('hidden');
-        });
-      });
-    }
-  };
-  invisibleOpen();
   var onMouseDown = function (evt) {
     evt.preventDefault();
     var start = {
       x: evt.clientX,
       y: evt.clientY
     };
-    window.addDisabledFieldset(false);
 
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      window.disabledFieldset(false);
       var shift = {
         x: start.x - mapPinMain.offsetLeft,
         y: start.y - mapPinMain.offsetTop
@@ -104,8 +63,19 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
+  var onFirstMousedown = function () {
+    if (window.data.getAdverts().length > 0) {
+
+      window.render.firstRenderPopup();
+      window.render.renderPins(window.data.getAdverts());
+      showMap();
+      showAdverts();
+      mapPinMain.removeEventListener('mousedown', onFirstMousedown);
+    }
+  };
 
   mapPinMain.addEventListener('mousedown', onMouseDown);
+  mapPinMain.addEventListener('mousedown', onFirstMousedown);
 
 
 })();
