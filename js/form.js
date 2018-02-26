@@ -1,9 +1,7 @@
 'use strict';
 (function () {
-  var noticeForm = document.querySelector('.notice__form');
-
   var successUploadHandler = function () {
-    window.addDisabledFieldset(false);
+    window.disabledFieldset(true);
   };
 
   var errorUploadHandler = function (errorMessage) {
@@ -15,60 +13,35 @@
     node.style.fontSize = '30px';
 
     node.textContent = errorMessage;
-    noticeForm.insertAdjacentElement('afterbegin', node);
+    window.data.noticeForm.insertAdjacentElement('afterbegin', node);
     setTimeout(function () {
-      noticeForm.removeChild(node);
-    }, 5000);
+      window.data.noticeForm.removeChild(node);
+    }, window.util.time.TIME_END);
   };
 
-  noticeForm.addEventListener('submit', function (evt) {
+  window.data.noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(noticeForm), successUploadHandler,
+    window.backend.save(new FormData(window.data.noticeForm), successUploadHandler,
         errorUploadHandler);
-    noticeForm.reset();
+    window.data.noticeForm.reset();
   });
 
-  noticeForm.addEventListener('reset', function () {
+  window.data.noticeForm.addEventListener('reset', function () {
     window.disabledFieldset(true);
   });
 
 
-  window.disabledFieldset = function (boolenValue) {
-    boolenValue = boolenValue || false;
-    Array.prototype.slice.call(noticeForm).forEach(function (elem) {
-      if (elem.tagName.toLowerCase() !== 'fildset') {
-        return;
-      }
-      elem.disabled = boolenValue;
-    });
+  window.firm = {
+    disabledFieldset: function (boolenValue) {
+      boolenValue = boolenValue || false;
+      Array.prototype.slice.call(window.data.noticeForm).forEach(function (elem) {
+        if (elem.tagName.toLowerCase() !== 'fieldset') {
+          return;
+        }
+        elem.disabled = boolenValue;
+      });
+    },
+    noticeForm: document.querySelector('.notice__form')
   };
 
-
-  /* var pinSolo = document.querySelectorAll('.pin__solo');
-  var noticeFormDisabled = document.querySelectorAll('.notice__form fieldset');
-  var noticeForm = document.querySelector('.notice__form');
-  window.addDisabledFieldset = function (BooleanValue) {
-    for (var i = 0; i < noticeFormDisabled.length; i++) {
-      if (BooleanValue) {
-        noticeFormDisabled[i].setAttribute('disabled', 'disabled');
-        window.render.card.classList.add('map--faded');
-        noticeForm.classList.add('notice__form--disabled');
-        for (var a = 0; a < window.data.posting.length; a++) {
-          pinSolo[a].classList.add('hidden');
-
-        }
-      } else {
-        noticeFormDisabled[i].removeAttribute('disabled', 'disabled');
-        window.render.card.classList.remove('map--faded');
-        noticeForm.classList.remove('notice__form--disabled');
-        for (var c = 0; c < window.data.posting.length; c++) {
-          pinSolo[c].classList.remove('hidden');
-
-        }
-
-      }
-    }
-
-  }; */
-  // window.addDisabledFieldset(true);
 })();

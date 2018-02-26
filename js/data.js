@@ -2,7 +2,6 @@
 'use strict';
 (function () {
   var posts = [];
-  var noticeForm = document.querySelector('.notice__form');
 
   var successLoadHandler = function (response) {
     window.data.setData(response);
@@ -16,9 +15,9 @@
     node.style.right = 0;
     node.style.fontSize = '30px';
     node.textContent = errorMessage;
-    noticeForm.insertAdjacentElement('afterbegin', node);
+    window.data.noticeForm.insertAdjacentElement('afterbegin', node);
     setTimeout(function () {
-      noticeForm.removeChild(node);
+      window.data.noticeForm.removeChild(node);
     }, 5000);
   };
 

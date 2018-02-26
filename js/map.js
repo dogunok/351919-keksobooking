@@ -2,13 +2,12 @@
 'use strict';
 (function () {
   // объявляем дом элементы
-  var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
 
   var showMap = function () {
     map.classList.remove('map--faded');
-    noticeForm.classList.remove('notice__form--disabled');
+    window.data.noticeForm.classList.remove('notice__form--disabled');
   };
 
   var showAdverts = function () {
@@ -45,8 +44,8 @@
         return Math.min(Math.max(value, min), max);
       };
 
-      var newX = minMaxComposition(start.x - shift.x, 300, 900);
-      var newY = minMaxComposition(start.y - shift.y, 150, 500);
+      var newX = minMaxComposition(start.x - shift.x, 300, 1165);
+      var newY = minMaxComposition(start.y - shift.y, 150, 590);
       var adAdress = document.querySelector('#address');
       adAdress.value = 'x:' + (newX + 20) + ' y:' + (newY + 44);
       mapPinMain.style.top = newY + 'px';
