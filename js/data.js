@@ -18,7 +18,7 @@
     window.data.noticeForm.insertAdjacentElement('afterbegin', node);
     setTimeout(function () {
       window.data.noticeForm.removeChild(node);
-    }, 5000);
+    }, window.util.time.TIME_END);
   };
 
   window.backend.load(successLoadHandler, errorLoadHandler);

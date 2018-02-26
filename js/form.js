@@ -1,7 +1,9 @@
 'use strict';
 (function () {
+  var noticeForm = document.querySelector('.notice__form');
+
   var successUploadHandler = function () {
-    window.disabledFieldset(true);
+    window.disabledFieldset(false);
   };
 
   var errorUploadHandler = function (errorMessage) {
@@ -13,35 +15,33 @@
     node.style.fontSize = '30px';
 
     node.textContent = errorMessage;
-    window.data.noticeForm.insertAdjacentElement('afterbegin', node);
+    noticeForm.insertAdjacentElement('afterbegin', node);
     setTimeout(function () {
-      window.data.noticeForm.removeChild(node);
-    }, window.util.time.TIME_END);
+      noticeForm.removeChild(node);
+    }, 5000);
   };
 
-  window.data.noticeForm.addEventListener('submit', function (evt) {
+  noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(window.data.noticeForm), successUploadHandler,
+    window.backend.save(new FormData(noticeForm), successUploadHandler,
         errorUploadHandler);
-    window.data.noticeForm.reset();
+    noticeForm.reset();
   });
 
-  window.data.noticeForm.addEventListener('reset', function () {
+  noticeForm.addEventListener('reset', function () {
     window.disabledFieldset(true);
   });
 
 
-  window.firm = {
-    disabledFieldset: function (boolenValue) {
-      boolenValue = boolenValue || false;
-      Array.prototype.slice.call(window.data.noticeForm).forEach(function (elem) {
-        if (elem.tagName.toLowerCase() !== 'fieldset') {
-          return;
-        }
-        elem.disabled = boolenValue;
-      });
-    },
-    noticeForm: document.querySelector('.notice__form')
+  window.disabledFieldset = function (boolenValue) {
+    boolenValue = boolenValue || false;
+    Array.prototype.slice.call(noticeForm).forEach(function (elem) {
+      if (elem.tagName.toLowerCase() !== 'fieldset') {
+        return;
+      }
+      elem.disabled = boolenValue;
+    });
   };
+
 
 })();

@@ -2,12 +2,13 @@
 'use strict';
 (function () {
   // объявляем дом элементы
+  var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
 
   var showMap = function () {
     map.classList.remove('map--faded');
-    window.data.noticeForm.classList.remove('notice__form--disabled');
+    noticeForm.classList.remove('notice__form--disabled');
   };
 
   var showAdverts = function () {
