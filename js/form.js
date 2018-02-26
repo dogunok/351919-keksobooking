@@ -26,10 +26,19 @@
     window.backend.save(new FormData(noticeForm), successUploadHandler,
         errorUploadHandler);
     noticeForm.reset();
+    if (evt.keyCode === window.util.keycode.ENTER) {
+      evt.preventDefault();
+      window.backend.save(new FormData(noticeForm), successUploadHandler,
+          errorUploadHandler);
+      noticeForm.reset();
+    }
   });
 
-  noticeForm.addEventListener('reset', function () {
+  noticeForm.addEventListener('reset', function (evt) {
     window.disabledFieldset(true);
+    if (evt.keyCode === window.util.keycode.ENTER) {
+      window.disabledFieldset(true);
+    }
   });
 
 

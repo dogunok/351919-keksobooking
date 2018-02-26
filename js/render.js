@@ -54,10 +54,15 @@
           querySelector('article');
       var popup = template.cloneNode(true);
       popup.classList.add('hidden');
-      popup.querySelector('.popup__close').
-          addEventListener('click', function () {
-            popup.classList.add('hidden');
-          });
+      popup.querySelector('.popup__close').addEventListener('click', function () {
+        popup.classList.add('hidden');
+      });
+      document.addEventListener('keydown', function (evt) {
+        if (evt.keyCode === window.util.keycode.ESC) {
+          popup.classList.add('hidden');
+        }
+      });
+
       map.appendChild(popup);
     },
     updatePopup: function (id) {
@@ -93,7 +98,6 @@
         pin.addEventListener('click', function (evt) {
           var id = evt.currentTarget.dataset.id;
           window.render.updatePopup(id);
-
         });
 
         pin.style.left = data[i].location.x +

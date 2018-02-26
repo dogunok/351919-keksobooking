@@ -41,6 +41,7 @@
 
   var timeChangeHandler = function (evt) {
     synchronizeTime(evt.target.value);
+
   };
 
   timein.addEventListener('change', timeChangeHandler);
