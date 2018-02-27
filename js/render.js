@@ -1,4 +1,4 @@
-/* eslint-disable valid-jsdoc */
+/* eslint-disable valid-jsdoc,no-return-assign */
 'use strict';
 (function () {
   var mapPins = document.querySelector('.map__pins');
@@ -42,6 +42,15 @@
     return fragment;
   };
 
+  var renderType = function (type) {
+    if (type === 'flat') {
+      return type = 'Kвартира';
+    }
+    if (type === 'bungalo') {
+      return type = 'Бунгало';
+    }
+    return type = 'Дом';
+  };
   /**
    * Функция создает шаблон, пинов и объявления
    * @param data исходный массив
@@ -78,7 +87,7 @@
       windowElement.querySelector(' h3').textContent = data.offer.title;
       windowElement.querySelector(' p').textContent = data.location.x + ',' + data.location.y;
       windowElement.querySelector('.popup__price').innerHTML = data.offer.price + '&#x20bd;/ночь';
-      windowElement.querySelector(' h4').textContent = data.offer.type;
+      windowElement.querySelector(' h4').textContent = renderType(data.offer.type);
       windowElement.querySelectorAll('p')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
       windowElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
       windowElement.querySelectorAll('p')[4].textContent = data.offer.description;
@@ -112,6 +121,6 @@
       }
       mapPins.appendChild(fragment);
 
-    },
+    }
   };
 })();
