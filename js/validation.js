@@ -6,13 +6,16 @@
   var timein = document.querySelector('#timein');
   var timeout = document.querySelector('#timeout');
 
+  var MINLENGHT_TITLE = '30';
+  var MAXLENGHT_TITLE = '100';
+  var MIN_PRICE_INDEX_0 = '1000';
+  var MIN_PRICE_INDEX_1 = '0';
+  var MIN_PRICE_INDEX_2 = '5000';
+  var MIN_PRICE_INDEX_3 = '10000';
+
   adTitle.setAttribute('required', 'required');
-  adTitle.setAttribute('minlength', '30');
-  adTitle.setAttribute('maxlength', '100');
-  adPrice.setAttribute('required', 'required');
-  adPrice.setAttribute('type', 'number');
-  adPrice.setAttribute('max', '1000000');
-  adPrice.setAttribute('min', '1000');
+  adTitle.setAttribute('minlength', MINLENGHT_TITLE);
+  adTitle.setAttribute('maxlength', MAXLENGHT_TITLE);
 
   /**
    * функция валидации списка типа жилья
@@ -20,16 +23,16 @@
   var typeChangeHandler = function () {
 
     if (adType.selectedIndex === 0) {
-      adPrice.setAttribute('min', '1000');
+      adPrice.setAttribute('min', MIN_PRICE_INDEX_0);
     }
     if (adType.selectedIndex === 1) {
-      adPrice.setAttribute('min', '0');
+      adPrice.setAttribute('min', MIN_PRICE_INDEX_1);
     }
     if (adType.selectedIndex === 2) {
-      adPrice.setAttribute('min', '5000');
+      adPrice.setAttribute('min', MIN_PRICE_INDEX_2);
     }
     if (adType.selectedIndex === 3) {
-      adPrice.setAttribute('min', '10000');
+      adPrice.setAttribute('min', MIN_PRICE_INDEX_3);
     }
 
   };
@@ -38,6 +41,7 @@
 
   var timeChangeHandler = function (evt) {
     synchronizeTime(evt.target.value);
+
   };
 
   timein.addEventListener('change', timeChangeHandler);
@@ -54,31 +58,29 @@
 
   var guestChangeHandler = function () {
     for (var i = 0; i < room.length; i++) {
+      guests[i].removeAttribute('disabled', 'disabled');
+      guests[i].removeAttribute('selected', 'selected');
       if (room.value === '1') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '2') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '3') {
-        guest[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
 
       }
       if (room.value === '100') {
-        guests[i].removeAttribute('disabled', 'disabled');
-        guests[i].removeAttribute('selected', 'selected');
+
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('disabled', 'disabled');
