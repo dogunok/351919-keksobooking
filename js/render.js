@@ -42,23 +42,14 @@
     return fragment;
   };
 
-  var renderType = function (type) {
-    if (type === 'flat') {
-      return type = 'Kвартира';
-    }
-    if (type === 'bungalo') {
-      return type = 'Бунгало';
-    }
-    return type = 'Дом';
-  };
 
-  var escClose = function(evt) {
+  var escClose = function (evt) {
     if (evt.keyCode === window.util.keycode.ESC) {
       var article = document.querySelector('.map__card');
       article.classList.add('hidden');
     }
     document.removeEventListener('keydown', escClose);
-  }
+  };
   /**
    * Функция создает шаблон, пинов и объявления
    * @param data исходный массив
@@ -91,7 +82,7 @@
       windowElement.querySelector(' h3').textContent = data.offer.title;
       windowElement.querySelector(' p').textContent = data.location.x + ',' + data.location.y;
       windowElement.querySelector('.popup__price').innerHTML = data.offer.price + '&#x20bd;/ночь';
-      windowElement.querySelector(' h4').textContent = renderType(data.offer.type);
+      windowElement.querySelector(' h4').textContent = window.util.APPARTMENT[data.offer.type];
       windowElement.querySelectorAll('p')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
       windowElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
       windowElement.querySelectorAll('p')[4].textContent = data.offer.description;

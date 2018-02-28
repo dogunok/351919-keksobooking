@@ -11,6 +11,11 @@
     keycode: {
       ESC: 27,
       ENTER: 13
+    },
+    APPARTMENT: {
+      flat: 'Квартира',
+      house: 'Дом',
+      bungalo: 'Бунгало'
     }
   };
 })();
