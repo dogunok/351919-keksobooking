@@ -9,8 +9,8 @@
       TIME_OUT: '10000'
     },
     keycode: {
-      ESC: '27',
-      ENTER: '13'
+      ESC: 27,
+      ENTER: 13
     }
   };
 })();

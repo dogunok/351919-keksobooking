@@ -63,17 +63,33 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
+
+  var onFirstKeydown = function (evt) {
+    if (evt.keyCode === window.util.keycode.ENTER) {
+      if (window.data.getAdverts().length > 0) {
+
+        window.render.firstRenderPopup();
+        window.render.renderPins(window.data.getAdverts());
+
+        showMap();
+        showAdverts();
+      }
+      mapPinMain.removeEventListener('mousedown', onFirstMousedown);
+    }
+  };
   var onFirstMousedown = function () {
     if (window.data.getAdverts().length > 0) {
 
       window.render.firstRenderPopup();
       window.render.renderPins(window.data.getAdverts());
+
       showMap();
       showAdverts();
+
       mapPinMain.removeEventListener('mousedown', onFirstMousedown);
     }
   };
-
+  mapPinMain.addEventListener('keydown', onFirstKeydown);
   mapPinMain.addEventListener('mousedown', onMouseDown);
   mapPinMain.addEventListener('mousedown', onFirstMousedown);
 

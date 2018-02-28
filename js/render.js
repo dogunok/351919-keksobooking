@@ -51,6 +51,14 @@
     }
     return type = 'Дом';
   };
+
+  var escClose = function(evt) {
+    if (evt.keyCode === window.util.keycode.ESC) {
+      var article = document.querySelector('.map__card');
+      article.classList.add('hidden');
+    }
+    document.removeEventListener('keydown', escClose);
+  }
   /**
    * Функция создает шаблон, пинов и объявления
    * @param data исходный массив
@@ -66,11 +74,7 @@
       popup.querySelector('.popup__close').addEventListener('click', function () {
         popup.classList.add('hidden');
       });
-      document.addEventListener('keydown', function (evt) {
-        if (evt.keyCode === window.util.keycode.ESC) {
-          popup.classList.add('hidden');
-        }
-      });
+
 
       map.appendChild(popup);
     },
@@ -107,6 +111,7 @@
         pin.addEventListener('click', function (evt) {
           var id = evt.currentTarget.dataset.id;
           window.render.updatePopup(id);
+          document.addEventListener('keydown', escClose);
         });
 
         pin.style.left = data[i].location.x +
