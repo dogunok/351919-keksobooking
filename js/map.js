@@ -1,24 +1,26 @@
 /* eslint-disable valid-jsdoc,no-unused-expressions */
 'use strict';
 (function () {
-  // объявляем дом элементы
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
+  var CODE_ENTER = 13;
+  var HORIZONTAL_SIZE = 44;
+  var VERTICAL_SIZE = 20;
 
+  /**
+   * Функция делает страницу активной
+   */
   var showMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
   };
 
-  var showAdverts = function () {
-    var pins = document.querySelectorAll('.map__pin');
-    for (var i = 0; i < pins.length; i++) {
-      pins[i].classList.remove('hidden');
-    }
-  };
 
-
+  /**
+   * Функция перемещения главного пина в заданных координатах
+   * @param evt
+   */
   var onMouseDown = function (evt) {
     evt.preventDefault();
     var start = {
@@ -46,9 +48,9 @@
       };
 
       var newX = minMaxComposition(start.x - shift.x, 300, 1165);
-      var newY = minMaxComposition(start.y - shift.y, 150, 590);
+      var newY = minMaxComposition(start.y - shift.y, 150, 500);
       var adAdress = document.querySelector('#address');
-      adAdress.value = 'x:' + (newX + 20) + ' y:' + (newY + 44);
+      adAdress.value = 'x:' + (newX + VERTICAL_SIZE) + ' y:' + (newY + HORIZONTAL_SIZE);
       mapPinMain.style.top = newY + 'px';
       mapPinMain.style.left = newX + 'px';
     };
@@ -63,20 +65,26 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-
+  /**
+   * Функция активации страницы с помощью клавиатуры
+   * @param evt
+   */
   var onFirstKeydown = function (evt) {
-    if (evt.keyCode === window.util.keycode.ENTER) {
+    if (evt.keyCode === CODE_ENTER) {
       if (window.data.getAdverts().length > 0) {
 
         window.render.firstRenderPopup();
         window.render.renderPins(window.data.getAdverts());
 
         showMap();
-        showAdverts();
+        window.util.showAdverts();
       }
       mapPinMain.removeEventListener('mousedown', onFirstMousedown);
     }
   };
+  /**
+   * Функция активации страницы с помощью мыши
+   */
   var onFirstMousedown = function () {
     if (window.data.getAdverts().length > 0) {
 
@@ -84,7 +92,7 @@
       window.render.renderPins(window.data.getAdverts());
 
       showMap();
-      showAdverts();
+      window.util.showAdverts();
 
       mapPinMain.removeEventListener('mousedown', onFirstMousedown);
     }

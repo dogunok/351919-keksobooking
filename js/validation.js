@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 'use strict';
 (function () {
   var adTitle = document.querySelector('#title');
@@ -38,15 +39,20 @@
   };
 
   adType.addEventListener('change', typeChangeHandler);
-
+  /**
+   * Функция события заезда и выезда
+   * @param evt
+   */
   var timeChangeHandler = function (evt) {
     synchronizeTime(evt.target.value);
-
   };
 
   timein.addEventListener('change', timeChangeHandler);
   timeout.addEventListener('change', timeChangeHandler);
-
+  /**
+   * Функция синхронизации заезда и выезда
+   * @param time
+   */
   var synchronizeTime = function (time) {
     timeout.value = time;
     timein.value = time;
@@ -61,26 +67,21 @@
       guests[i].removeAttribute('disabled', 'disabled');
       guests[i].removeAttribute('selected', 'selected');
       if (room.value === '1') {
-
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '2') {
-
         guest[0].setAttribute('disabled', 'disabled');
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
       }
       if (room.value === '3') {
-
         guest[3].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('selected', 'selected');
-
       }
       if (room.value === '100') {
-
         guest[0].setAttribute('disabled', 'disabled');
         guest[1].setAttribute('disabled', 'disabled');
         guest[2].setAttribute('disabled', 'disabled');

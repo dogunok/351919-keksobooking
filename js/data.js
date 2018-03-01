@@ -1,28 +1,19 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,valid-jsdoc */
 'use strict';
 (function () {
   var posts = [];
-  var noticeForm = document.querySelector('.notice__form');
+  /**
+   * Функция удачной загрузки данных с сервера
+   * @param response
+   */
   var successLoadHandler = function (response) {
     window.data.setData(response);
-
+    console.log(response)
+    window.disabledFieldset(true);
   };
 
-  var errorLoadHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-    node.textContent = errorMessage;
-    noticeForm.insertAdjacentElement('afterbegin', node);
-    setTimeout(function () {
-      noticeForm.removeChild(node);
-    }, window.util.time.TIME_END);
-  };
 
-  window.backend.load(successLoadHandler, errorLoadHandler);
+  window.backend.load(successLoadHandler, window.util.errorUploadHandler);
 
 
   window.data = {
@@ -39,7 +30,29 @@
       // вспомогательные функции лучше здесь.
       // выносить в util необязательно
 
-      return posts.filter(function (post) {
+      return posts.filter(function (posts) {
+
+        if (!filter.hasOwnProperty(filterName)) {
+          continue;
+        }
+        for (var key in window.filter) {
+          if (key === 'housing-type' && post.offer.type !== value) {
+            return false;
+          }
+          if (key === 'housing-price' && post.offer.price !== value) {
+            return false;
+          }
+          if (key === 'housing-rooms' && post.offer.rooms !== value) {
+            return false;
+          }
+          if (key === 'housing-guests' && post.offer.guests !== value) {
+            return false;
+          }
+
+        }
+
+
+
         // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/for...in
         // перебираем циклом for in наш фильтр который заполняем в обработчике формы в модуле filter
         // если значение фильтра содержит определенный элемент в post, то возвращаем false, тем самым убираем элемент из выборки

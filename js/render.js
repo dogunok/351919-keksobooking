@@ -4,6 +4,7 @@
   var mapPins = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
   var MAX_PHOTOS = '6';
+  var CODE_ESC = 27;
   /**
    * Функция создания фотографий
    * @param photos
@@ -42,19 +43,18 @@
     return fragment;
   };
 
-
-  var escClose = function (evt) {
-    if (evt.keyCode === window.util.keycode.ESC) {
+  /**
+   * Функция события
+   * @param evt
+   */
+  var escKeydownHandler = function (evt) {
+    if (evt.keyCode === CODE_ESC) {
       var article = document.querySelector('.map__card');
       article.classList.add('hidden');
     }
-    document.removeEventListener('keydown', escClose);
+    document.removeEventListener('keydown', escKeydownHandler);
   };
-  /**
-   * Функция создает шаблон, пинов и объявления
-   * @param data исходный массив
-   * @param numberId номер пина
-   */
+
   window.render = {
     firstRenderPopup: function () {
       var template = document.querySelector('template').
@@ -102,7 +102,7 @@
         pin.addEventListener('click', function (evt) {
           var id = evt.currentTarget.dataset.id;
           window.render.updatePopup(id);
-          document.addEventListener('keydown', escClose);
+          document.addEventListener('keydown', escKeydownHandler);
         });
 
         pin.style.left = data[i].location.x +
