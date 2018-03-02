@@ -32,6 +32,7 @@
     });
     return fragment;
   };
+
   /**
    * функция создания фич
    * @param featuresList
