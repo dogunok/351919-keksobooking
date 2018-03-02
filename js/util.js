@@ -1,16 +1,26 @@
 'use strict';
 (function () {
   window.util = {
-    getRandom: function (min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+    showMessageError: function (errorMessage) {
+      var noticeForm = document.querySelector('.notice__form');
+      var TIME_END = '5000';
+      var node = document.createElement('div');
+      node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      node.style.position = 'absolute';
+      node.style.left = 0;
+      node.style.right = 0;
+      node.style.fontSize = '30px';
+      node.textContent = errorMessage;
+      noticeForm.insertAdjacentElement('afterbegin', node);
+      setTimeout(function () {
+        noticeForm.removeChild(node);
+      }, TIME_END);
     },
-    time: {
-      TIME_END: '5000',
-      TIME_OUT: '10000'
-    },
-    keycode: {
-      ESC: '27',
-      ENTER: '13'
+    showAdverts: function () {
+      var pins = document.querySelectorAll('.map__pin');
+      for (var i = 0; i < pins.length; i++) {
+        pins[i].classList.remove('hidden');
+      }
     }
   };
 })();

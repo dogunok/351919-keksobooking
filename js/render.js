@@ -1,9 +1,15 @@
-/* eslint-disable valid-jsdoc */
+/* eslint-disable valid-jsdoc,no-return-assign */
 'use strict';
 (function () {
   var mapPins = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
   var MAX_PHOTOS = '6';
+  var CODE_ESC = 27;
+  var APPARTMENT = {
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало'
+  };
   /**
    * Функция создания фотографий
    * @param photos
@@ -43,10 +49,17 @@
   };
 
   /**
-   * Функция создает шаблон, пинов и объявления
-   * @param data исходный массив
-   * @param numberId номер пина
+   * Функция события
+   * @param evt
    */
+  var escKeydownHandler = function (evt) {
+    if (evt.keyCode === CODE_ESC) {
+      var article = document.querySelector('.map__card');
+      article.classList.add('hidden');
+    }
+    document.removeEventListener('keydown', escKeydownHandler);
+  };
+
   window.render = {
     firstRenderPopup: function () {
       var template = document.querySelector('template').
@@ -57,11 +70,7 @@
       popup.querySelector('.popup__close').addEventListener('click', function () {
         popup.classList.add('hidden');
       });
-      document.addEventListener('keydown', function (evt) {
-        if (evt.keyCode === window.util.keycode.ESC) {
-          popup.classList.add('hidden');
-        }
-      });
+
 
       map.appendChild(popup);
     },
@@ -78,7 +87,7 @@
       windowElement.querySelector(' h3').textContent = data.offer.title;
       windowElement.querySelector(' p').textContent = data.location.x + ',' + data.location.y;
       windowElement.querySelector('.popup__price').innerHTML = data.offer.price + '&#x20bd;/ночь';
-      windowElement.querySelector(' h4').textContent = data.offer.type;
+      windowElement.querySelector(' h4').textContent = APPARTMENT[data.offer.type];
       windowElement.querySelectorAll('p')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
       windowElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
       windowElement.querySelectorAll('p')[4].textContent = data.offer.description;
@@ -98,6 +107,7 @@
         pin.addEventListener('click', function (evt) {
           var id = evt.currentTarget.dataset.id;
           window.render.updatePopup(id);
+          document.addEventListener('keydown', escKeydownHandler);
         });
 
         pin.style.left = data[i].location.x +
@@ -105,13 +115,13 @@
         pin.style.top = data[i].location.y +
           'px';
 
-        pin.setAttribute('data-id', i);
+        pin.setAttribute('data-id', data[i].id);
         pinImg.src = data[i].author.avatar;
         pin.classList.add('hidden');
         fragment.appendChild(pin);
       }
       mapPins.appendChild(fragment);
 
-    },
+    }
   };
 })();
