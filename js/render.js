@@ -5,6 +5,11 @@
   var map = document.querySelector('.map');
   var MAX_PHOTOS = '6';
   var CODE_ESC = 27;
+  var APPARTMENT = {
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало'
+  };
   /**
    * Функция создания фотографий
    * @param photos
@@ -82,7 +87,7 @@
       windowElement.querySelector(' h3').textContent = data.offer.title;
       windowElement.querySelector(' p').textContent = data.location.x + ',' + data.location.y;
       windowElement.querySelector('.popup__price').innerHTML = data.offer.price + '&#x20bd;/ночь';
-      windowElement.querySelector(' h4').textContent = window.util.APPARTMENT[data.offer.type];
+      windowElement.querySelector(' h4').textContent = APPARTMENT[data.offer.type];
       windowElement.querySelectorAll('p')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
       windowElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
       windowElement.querySelectorAll('p')[4].textContent = data.offer.description;
@@ -110,7 +115,7 @@
         pin.style.top = data[i].location.y +
           'px';
 
-        pin.setAttribute('data-id', i);
+        pin.setAttribute('data-id', data[i].id);
         pinImg.src = data[i].author.avatar;
         pin.classList.add('hidden');
         fragment.appendChild(pin);

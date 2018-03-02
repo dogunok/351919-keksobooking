@@ -1,14 +1,6 @@
 'use strict';
 (function () {
   window.util = {
-    getRandom: function (min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    APPARTMENT: {
-      flat: 'Квартира',
-      house: 'Дом',
-      bungalo: 'Бунгало'
-    },
     errorUploadHandler: function (errorMessage) {
       var noticeForm = document.querySelector('.notice__form');
       var TIME_END = '5000';
