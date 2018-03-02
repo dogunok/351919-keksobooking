@@ -59,6 +59,9 @@
        * @return boolean
        */
       var isHousingPriceRange = function (value, price) {
+        if (SELECTED_RANGES[value].max < 0) {
+          return price >= SELECTED_RANGES[value].min;
+        }
         return price >= SELECTED_RANGES[value].min && price <= SELECTED_RANGES[value].max;
       };
 
@@ -75,9 +78,8 @@
             continue;
           }
 
-          // if (~key.indexOf('housing-')) {
           if (key === 'housing-type' && post.offer.type !== value) {
-
+            return false;
           }
           if (key === 'housing-price' && !isHousingPriceRange(value, post.offer.price)) {
             return false;
@@ -88,7 +90,6 @@
           if (key === 'housing-guests' && post.offer.guests !== parseInt(value, 10)) {
             return false;
           }
-          //  }
           if (~key.indexOf('filter-') && !isFeaturesOn(post.offer.features, value)) {
             return false;
           }
