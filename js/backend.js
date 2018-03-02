@@ -3,6 +3,7 @@
 (function () {
   var SUCCESS_CODE = 200;
   var TIME_OUT = '10000';
+
   window.backend = {
     load: function (onLoad, onError) {
       var URL = 'https://js.dump.academy/keksobooking/data';

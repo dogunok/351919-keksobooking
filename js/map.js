@@ -1,12 +1,13 @@
 /* eslint-disable valid-jsdoc,no-unused-expressions */
 'use strict';
 (function () {
-  var noticeForm = document.querySelector('.notice__form');
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
   var CODE_ENTER = 13;
   var HORIZONTAL_SIZE = 44;
   var VERTICAL_SIZE = 20;
+  var noticeForm = document.querySelector('.notice__form');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
+
 
   /**
    * Функция делает страницу активной
@@ -15,7 +16,6 @@
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
   };
-
 
   /**
    * Функция перемещения главного пина в заданных координатах
@@ -27,7 +27,6 @@
       x: evt.clientX,
       y: evt.clientY
     };
-
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -61,10 +60,10 @@
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
+
   /**
    * Функция активации страницы с помощью клавиатуры
    * @param evt
@@ -97,6 +96,7 @@
       mapPinMain.removeEventListener('mousedown', onFirstMousedown);
     }
   };
+
   mapPinMain.addEventListener('keydown', onFirstKeydown);
   mapPinMain.addEventListener('mousedown', onMouseDown);
   mapPinMain.addEventListener('mousedown', onFirstMousedown);

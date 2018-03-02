@@ -10,6 +10,7 @@
     house: 'Дом',
     bungalo: 'Бунгало'
   };
+
   /**
    * Функция создания фотографий
    * @param photos
@@ -91,7 +92,6 @@
       windowElement.querySelectorAll('p')[2].textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
       windowElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
       windowElement.querySelectorAll('p')[4].textContent = data.offer.description;
-
       windowElement.classList.add('hidden');
       windowElement.classList.remove('hidden');
     },

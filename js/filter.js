@@ -26,10 +26,10 @@
     }
   };
 
+
   filtersForm.addEventListener('change', function (evt) {
     var target = evt.target;
     var value = target.value;
-
     for (var key in window.filter) {
 
       if (!window.filter.hasOwnProperty(key)) {
@@ -47,9 +47,14 @@
 
 
     }
-    removePins();
-    window.render.renderPins(window.data.getFilteredAdvers());
-    window.util.showAdverts();
+    var article = document.querySelector('article');
+    article.classList.add('hidden');
+
+    window.debounce(function () {
+      removePins();
+      window.render.renderPins(window.data.getFilteredAdvers());
+      window.util.showAdverts();
+    });
 
   });
 
