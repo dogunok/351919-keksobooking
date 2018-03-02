@@ -10,7 +10,7 @@
   noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(noticeForm), successUploadHandler,
-        window.util.errorUploadHandler);
+        window.util.showMessageError);
     noticeForm.reset();
 
   });

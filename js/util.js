@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   window.util = {
-    errorUploadHandler: function (errorMessage) {
+    showMessageError: function (errorMessage) {
       var noticeForm = document.querySelector('.notice__form');
       var TIME_END = '5000';
       var node = document.createElement('div');

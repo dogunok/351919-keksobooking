@@ -12,7 +12,7 @@
   };
 
 
-  window.backend.load(successLoadHandler, window.util.errorUploadHandler);
+  window.backend.load(successLoadHandler, window.util.showMessageError);
 
 
   window.data = {
@@ -29,9 +29,39 @@
       return posts[id];
     },
     getFilteredAdvers: function () {
+      var SELECTED_RANGES = {
+        low: {
+          min: 0,
+          max: 10000
+        },
+        middle: {
+          min: 10000,
+          max: 50000
+        },
+        high: {
+          min: 50000,
+          max: -1
+        },
+        any: {
+          min: -1,
+          max: -1
+        }
+      };
+
       var isFeaturesOn = function (features, value) {
         return ~features.indexOf(value);
       };
+
+      /**
+       *  проверяет по value(middle,any,high) входить ли в диапазон price
+       * @param value
+       * @param price
+       * @return boolean
+       */
+      var isHousingPriceRange = function (value, price) {
+        return price >= SELECTED_RANGES[value].min && price <= SELECTED_RANGES[value].max;
+      };
+
       var filter = window.filter;
       return posts.filter(function (post) {
 
@@ -47,18 +77,18 @@
 
           // if (~key.indexOf('housing-')) {
           if (key === 'housing-type' && post.offer.type !== value) {
+
+          }
+          if (key === 'housing-price' && !isHousingPriceRange(value, post.offer.price)) {
             return false;
           }
-          if (key === 'housing-price' && post.offer.price !== value) {
+          if (key === 'housing-rooms' && post.offer.rooms !== parseInt(value, 10)) {
             return false;
           }
-          if (key === 'housing-rooms' && post.offer.rooms !== value) {
+          if (key === 'housing-guests' && post.offer.guests !== parseInt(value, 10)) {
             return false;
           }
-          if (key === 'housing-guests' && post.offer.guests !== value) {
-            return false;
-          }
-          //   }
+          //  }
           if (~key.indexOf('filter-') && !isFeaturesOn(post.offer.features, value)) {
             return false;
           }
