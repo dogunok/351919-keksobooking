@@ -1,4 +1,3 @@
-/* eslint-disable valid-jsdoc,no-unused-expressions */
 'use strict';
 (function () {
   var CODE_ENTER = 13;
@@ -9,18 +8,12 @@
   var map = document.querySelector('.map');
 
 
-  /**
-   * Функция делает страницу активной
-   */
   var showMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
   };
 
-  /**
-   * Функция перемещения главного пина в заданных координатах
-   * @param evt
-   */
+
   var onMouseDown = function (evt) {
     evt.preventDefault();
     var start = {
@@ -64,10 +57,7 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  /**
-   * Функция активации страницы с помощью клавиатуры
-   * @param evt
-   */
+
   var onFirstKeydown = function (evt) {
     if (evt.keyCode === CODE_ENTER) {
       if (window.data.getAdverts().length > 0) {
@@ -81,9 +71,7 @@
       mapPinMain.removeEventListener('mousedown', onFirstMousedown);
     }
   };
-  /**
-   * Функция активации страницы с помощью мыши
-   */
+
   var onFirstMousedown = function () {
     if (window.data.getAdverts().length > 0) {
 

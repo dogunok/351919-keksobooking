@@ -1,4 +1,3 @@
-/* eslint-disable valid-jsdoc */
 'use strict';
 (function () {
   var MINPRICES = {
@@ -20,9 +19,7 @@
   var guest = document.querySelector('#capacity');
   var room = document.querySelector('#room_number');
 
-  /**
-   * функция валидации списка типа жилья
-   */
+
   var typeChangeHandler = function (evt) {
     var value = evt.target.value;
     for (var type in MINPRICES) {
@@ -34,19 +31,11 @@
   };
 
 
-  /**
-   * Функция события заезда и выезда
-   * @param evt
-   */
   var timeChangeHandler = function (evt) {
     synchronizeTime(evt.target.value);
   };
 
 
-  /**
-   * Функция синхронизации заезда и выезда
-   * @param time
-   */
   var synchronizeTime = function (time) {
     timeout.value = time;
     timein.value = time;

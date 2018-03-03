@@ -1,4 +1,3 @@
-/* eslint-disable valid-jsdoc,no-return-assign */
 'use strict';
 (function () {
   var mapPins = document.querySelector('.map__pins');
@@ -11,11 +10,7 @@
     bungalo: 'Бунгало'
   };
 
-  /**
-   * Функция создания фотографий
-   * @param photos
-   * @returns {DocumentFragment}
-   */
+
   var createPictures = function (photos) {
     var fragment = document.createDocumentFragment();
     var count = (photos.length > MAX_PHOTOS) ? MAX_PHOTOS : photos.length;
@@ -33,11 +28,6 @@
     return fragment;
   };
 
-  /**
-   * функция создания фич
-   * @param featuresList
-   * @returns {DocumentFragment}
-   */
   var createFeatures = function (featuresList) {
     var fragment = document.createDocumentFragment();
     featuresList.forEach(function (feature) {
@@ -50,10 +40,7 @@
     return fragment;
   };
 
-  /**
-   * Функция события
-   * @param evt
-   */
+
   var escKeydownHandler = function (evt) {
     if (evt.keyCode === CODE_ESC) {
       var article = document.querySelector('.map__card');

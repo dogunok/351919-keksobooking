@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign,guard-for-in,consistent-return */
 'use strict';
 (function () {
   var filtersForm = document.querySelector('.map__filters');
