@@ -1,22 +1,6 @@
 /* eslint-disable valid-jsdoc */
 'use strict';
 (function () {
-  var adTitle = document.querySelector('#title');
-  var adPrice = document.querySelector('#price');
-  var adType = document.querySelector('#type');
-  var timein = document.querySelector('#timein');
-  var timeout = document.querySelector('#timeout');
-  var guest = document.querySelector('#capacity');
-  var room = document.querySelector('#room_number');
-
-  var MINLENGHT_TITLE = '30';
-  var MAXLENGHT_TITLE = '100';
-
-
-  adTitle.setAttribute('required', 'required');
-  adTitle.setAttribute('minlength', MINLENGHT_TITLE);
-  adTitle.setAttribute('maxlength', MAXLENGHT_TITLE);
-
   var MINPRICES = {
     'bungalo': '0',
     'flat': '1000',
@@ -29,6 +13,12 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
+  var adPrice = document.querySelector('#price');
+  var adType = document.querySelector('#type');
+  var timein = document.querySelector('#timein');
+  var timeout = document.querySelector('#timeout');
+  var guest = document.querySelector('#capacity');
+  var room = document.querySelector('#room_number');
 
   /**
    * функция валидации списка типа жилья
@@ -75,6 +65,8 @@
       }
     }
   };
+
+
   timein.addEventListener('change', timeChangeHandler);
   timeout.addEventListener('change', timeChangeHandler);
   adType.addEventListener('change', typeChangeHandler);

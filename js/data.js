@@ -1,6 +1,7 @@
 /* eslint-disable no-console,valid-jsdoc */
 'use strict';
 (function () {
+  var MAX_NUMBER_PINS = 5;
   var posts = [];
   /**
    * Функция удачной загрузки данных с сервера
@@ -23,7 +24,7 @@
       posts = data;
     },
     getAdverts: function () {
-      return posts.slice(0, 5);
+      return posts.slice(0, MAX_NUMBER_PINS);
     },
     getAdvert: function (id) {
       return posts[id];
@@ -97,7 +98,7 @@
 
         }
         return true;
-      }).slice(0, 5);
+      }).slice(0, MAX_NUMBER_PINS);
     }
   };
 
