@@ -1,12 +1,8 @@
-/* eslint-disable no-console,valid-jsdoc */
 'use strict';
 (function () {
   var MAX_NUMBER_PINS = 5;
   var posts = [];
-  /**
-   * Функция удачной загрузки данных с сервера
-   * @param response
-   */
+
   var successLoadHandler = function (response) {
     window.data.setData(response);
     window.disabledFieldset(true);
@@ -53,12 +49,7 @@
         return ~features.indexOf(value);
       };
 
-      /**
-       *  проверяет по value(middle,any,high) входить ли в диапазон price
-       * @param value
-       * @param price
-       * @return boolean
-       */
+
       var isHousingPriceRange = function (value, price) {
         if (SELECTED_RANGES[value].max < 0) {
           return price >= SELECTED_RANGES[value].min;
