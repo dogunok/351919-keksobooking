@@ -1,7 +1,7 @@
 /* eslint-disable no-console,valid-jsdoc */
 'use strict';
 (function () {
-  var maxNumberPins = 5;
+  var MAX_NUMBER_PINS = 5;
   var posts = [];
   /**
    * Функция удачной загрузки данных с сервера
@@ -24,7 +24,7 @@
       posts = data;
     },
     getAdverts: function () {
-      return posts.slice(0, maxNumberPins);
+      return posts.slice(0, MAX_NUMBER_PINS);
     },
     getAdvert: function (id) {
       return posts[id];
@@ -85,10 +85,10 @@
           if (key === 'housing-price' && !isHousingPriceRange(value, post.offer.price)) {
             return false;
           }
-          if (key === 'housing-rooms' && post.offer.rooms !== parseInt(value, post.length)) {
+          if (key === 'housing-rooms' && post.offer.rooms !== parseInt(value, 10)) {
             return false;
           }
-          if (key === 'housing-guests' && post.offer.guests !== parseInt(value, post.length)) {
+          if (key === 'housing-guests' && post.offer.guests !== parseInt(value, 10)) {
             return false;
           }
           if (~key.indexOf('filter-') && !isFeaturesOn(post.offer.features, value)) {
@@ -98,7 +98,7 @@
 
         }
         return true;
-      }).slice(0, maxNumberPins);
+      }).slice(0, MAX_NUMBER_PINS);
     }
   };
 
