@@ -4,6 +4,7 @@
     showMessageError: function (errorMessage) {
       var noticeForm = document.querySelector('.notice__form');
       var TIME_END = '5000';
+
       var node = document.createElement('div');
       node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
       node.style.position = 'absolute';
@@ -20,6 +21,15 @@
       var pins = document.querySelectorAll('.map__pin');
       for (var i = 0; i < pins.length; i++) {
         pins[i].classList.remove('hidden');
+      }
+    },
+    removePins: function () {
+      var mapPins = document.querySelector('.map__pins');
+      var mapPin = mapPins.querySelectorAll('.map__pin');
+      for (var i = 0; i < mapPin.length; i++) {
+        if (!mapPin[i].classList.contains('map__pin--main')) {
+          mapPins.removeChild(mapPin[i]);
+        }
       }
     }
   };

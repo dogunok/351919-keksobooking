@@ -4,6 +4,9 @@
   var map = document.querySelector('.map');
   var MAX_PHOTOS = '6';
   var CODE_ESC = 27;
+  var IMG_WIDTH = '60px';
+  var IMG_HEIGHT = '60px';
+  var MARGIN_RIGHT = '10px';
   var APPARTMENT = {
     flat: 'Квартира',
     house: 'Дом',
@@ -18,10 +21,10 @@
     photos.forEach(function (photo) {
       var li = document.createElement('li');
       var img = document.createElement('img');
-      img.style.width = '60px';
-      img.style.height = '60px';
+      img.style.width = IMG_WIDTH;
+      img.style.height = IMG_HEIGHT;
       img.src = photo;
-      li.style.marginRight = '10px';
+      li.style.marginRight = MARGIN_RIGHT;
       li.appendChild(img);
       fragment.appendChild(li);
     });
@@ -97,7 +100,6 @@
           window.render.updatePopup(id);
           document.addEventListener('keydown', escKeydownHandler);
         });
-
         pin.style.left = data[i].location.x +
           'px';
         pin.style.top = data[i].location.y +
@@ -105,7 +107,6 @@
 
         pin.setAttribute('data-id', data[i].id);
         pinImg.src = data[i].author.avatar;
-        pin.classList.add('hidden');
         fragment.appendChild(pin);
       }
       mapPins.appendChild(fragment);
