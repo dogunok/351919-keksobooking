@@ -15,15 +15,7 @@
     'filter-conditioner': null
   };
 
-  var removePins = function () {
-    var mapPins = document.querySelector('.map__pins');
-    var mapPin = mapPins.querySelectorAll('.map__pin');
-    for (var i = 0; i < mapPin.length; i++) {
-      if (!mapPin[i].classList.contains('map__pin--main')) {
-        mapPins.removeChild(mapPin[i]);
-      }
-    }
-  };
+
 
 
   filtersForm.addEventListener('change', function (evt) {
@@ -50,7 +42,7 @@
     article.classList.add('hidden');
 
     window.debounce(function () {
-      removePins();
+      window.util.removePins();
       window.render.renderPins(window.data.getFilteredAdvers());
       window.util.showAdverts();
     });

@@ -21,6 +21,15 @@
       for (var i = 0; i < pins.length; i++) {
         pins[i].classList.remove('hidden');
       }
+    },
+    removePins: function () {
+      var mapPins = document.querySelector('.map__pins');
+      var mapPin = mapPins.querySelectorAll('.map__pin');
+      for (var i = 0; i < mapPin.length; i++) {
+        if (!mapPin[i].classList.contains('map__pin--main')) {
+          mapPins.removeChild(mapPin[i]);
+        }
+      }
     }
   };
 })();

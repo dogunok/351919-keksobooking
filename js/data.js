@@ -3,13 +3,13 @@
   var MAX_NUMBER_PINS = 5;
   var posts = [];
 
-  var successLoadHandler = function (response) {
+  /*var successLoadHandler = function (response) {
     window.data.setData(response);
     window.disabledFieldset(true);
   };
 
 
-  window.backend.load(successLoadHandler, window.util.showMessageError);
+  window.backend.load(successLoadHandler, window.util.showMessageError); */
 
 
   window.data = {
