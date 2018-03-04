@@ -24,7 +24,7 @@
 
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
-       // window.disabledFieldset(false);
+        // window.disabledFieldset(false);
         var shift = {
           x: start.x - mapPinMain.offsetLeft,
           y: start.y - mapPinMain.offsetTop

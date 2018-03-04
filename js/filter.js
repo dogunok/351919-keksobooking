@@ -16,8 +16,6 @@
   };
 
 
-
-
   filtersForm.addEventListener('change', function (evt) {
     var target = evt.target;
     var value = target.value;
