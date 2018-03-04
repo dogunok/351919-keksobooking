@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   var MIN_HIGHT = 150;
-  var MAX_HIGHT = 500;
+  var LOW_BLOCK = 100;
   var MIN_WIDTH = 0;
   var HORIZONTAL_SIZE = 44;
   var VERTICAL_SIZE = 20;
@@ -45,7 +45,7 @@
       };
       var rect = mapPins.getBoundingClientRect();
       var newX = minMaxComposition(start.x - shift.x, MIN_WIDTH, rect.width);
-      var newY = minMaxComposition(start.y - shift.y, MIN_HIGHT, MAX_HIGHT);
+      var newY = minMaxComposition(start.y - shift.y, MIN_HIGHT, rect.height - LOW_BLOCK);
       var adAdress = document.querySelector('#address');
       adAdress.value = (newX + VERTICAL_SIZE) + ', ' + (newY + HORIZONTAL_SIZE);
       mapPinMain.style.top = newY + 'px';
